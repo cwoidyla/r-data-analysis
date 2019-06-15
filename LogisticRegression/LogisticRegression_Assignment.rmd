@@ -1,0 +1,181 @@
+---
+title: 'MGMT 635: Logistic Regression Assignment'
+author: "Conrad Woidyla"
+date: April 14, 2016
+header-includes:
+  - \usepackage{multirow}
+output: pdf_document
+---
+
+# Introduction
+In the Decision Tree Assignment, you performed classification using decision trees. Decision trees are only one of many methods that can classify data. Logistic regression models can also be built to classify binary target variables (just like decision trees do). Again, keep in mind that classification can be used with data that has multi-valued, categorical target variables (like "A, B, C, D, or F" (grades) and "A, B, AB, or O" (blood type)). In short, there are many algorithms we can use for classification. They all have different strengths and weaknesses. In fact, as you read Provost and Fawcett Chapters 3,4, and 7, you'll notice that they refer to a variety of classification methods and focus on thinking analytically and critically about the performance of the different models. Kabacoff 17.6 addresses this as well.
+
+Logistic regression differs from decision trees in that it does not predict the class of an observation, but it predicts the probability that an observation belongs to a class. Read that again and make sure you catch the subtle difference. A decision tree says, "This observation belongs to class 1." A logistic regression model says, "The probability that this observation belongs to class 1 is 78%." Be thinking about why it might be useful to have a probability of class membership as opposed to just a declaration of class membership!
+
+We will be leveraging Kabacoff Chapters 13 and 17 for this assignment. I highly recommend you read the introduction to Chapter 13, 13.1 through 13.1.2, 13.2 through 13.2.2, 17.2, and 17.6. 
+
+Like with the Decision Tree Assignment, in this assignment, we will focus on the critical and analytical thinking aspects of evaluating model performance.
+
+# Submission Requirements
+You will complete all your work in this RMD file. Submit your completed and "knitted" PDF or Word DOCX file. Note that it may be easier to complete the code portions, knit your file to DOCX, and then answer the questions inside the DOCX file. Might I suggest bolding or italicizing your short answer responses (or otherwise highlighting them) so they are easy for me to find. 
+
+NOTE: You do not necessary have to include the answers to the questions in R Code blocks with comments.  You can just type your answers in using Word. 
+
+Please only submit one file for this assignment.
+
+# Data set
+For this assignment, we will be using the same [German Credit data set](http://ocw.mit.edu/courses/sloan-school-of-management/15-062-data-mining-spring-2003/assignments/GermanCredit.xls) that we used in the Decision Tree Assignment. . You'll find the data on Blackboard Learn in a file named `german_credit.csv`.
+
+Again, you will need to reference the description of the data in [this document](http://ocw.mit.edu/courses/sloan-school-of-management/15-062-data-mining-spring-2003/assignments/GermanCredit.pdf) to understand how to interpret the columns.
+
+
+# Assignment Requirements and Instructions 
+Before you complete any of the steps, seed the random number generator so your results are comparable to my results and the other students'.
+
+```{r}
+set.seed(1234)
+```
+Now a fair warning. I'm not going to give you a lot of direction on this assignment. Kabacoff shows you how to perform logistic regression in his book. Be sure and refer to code examples in the sections of Chapter 13 referenced above and Listing 17.2.
+
+## Step 1: Load and prepare the data 
+Load the data from the `german_credit.csv` file on Blackboard Learn. Do you need to modify the data at all?
+
+```{r}
+# load libraries and your data here
+#install.packages("rpart")
+#install.packages("rpart.plot")
+library(rpart)
+library(rpart.plot)
+#setwd("../../Unit9")
+gcredit <- read.csv("german_credit.csv",as.is=TRUE)
+gcredit$OBS. <- NULL
+```
+`I set the observation column to NULL.`
+
+## Step 2: Separate the data into training and validation sets. 
+You did this in the Decision Tree Assignment, you need to do the same thing here.
+
+
+```{r}
+# show your code here
+train <- sample(nrow(gcredit), 0.8*nrow(gcredit))
+gcredit.train <- gcredit[train,]
+gcredit.validate <- gcredit[-train,]
+```
+
+###_Question_:  Describe in words how your code to create the training and validation data sets works?
+`The code to create the training and validation sets works by randomly sampling a percentage of the total number of entries in the set "gcredit". Here, 80 percent of "gcredit"'s total number of entries is sampled and stored in the variable "train". "train" is  then used to create a subset of "gcredit"" by indexing 80 percent of random entries for the training set "gcredit.train". The other 20 percent of "gcredit"" is stored in the validation set, "gcredit.validate", by using the opposite of "train" in gcredit's set of entries.`
+
+###_Question_: Will your training and validations data sets for this assignment contain the same data as they did for the last assignment? Explain your answer.
+`Yes, the training and validation data sets will contain the same data set since the seed is set to the same value as the previous assignment.`
+
+## Step 3: Build a Logistic Regression Model and compare its results to your Decision Tree Model in the last assignment.
+Refer to Kabacoff Chapters 13 and 17 to do this. Then answer the following questions.
+
+```{r}
+# show your code here
+gcredit.logit <- glm(RESPONSE~., data = gcredit.train, family = binomial() )
+dtree <- rpart(RESPONSE ~ .,data=gcredit.train, method="class",
+               parms = list(split = "information"))
+```
+
+###_Question_: Explore the output of your logistic regression model, compare it with the output of your decision tree model, and then describe the differences and similarities between the two models.
+
+```{r}
+# show your code here
+summary(gcredit.logit)
+prp(dtree, type = 2, extra = 104, fallen.leaves = TRUE, main = "Decision Tree")
+```
+
+`The outputs of the logistic regression model are similar and different to the outputs of the decision tree model. The outputs are similar in that the variables used to build the model are numerically described to signify the importance of variables. The outputs are different in that the logistic regression model reports descriptive statistics about residuals and each of the coefficients, while the decision tree model reports nodes with events in data that split users into a category.`
+
+###_Question_: After you build the model, figure out the accuracy of your model on the training data set. Remember, you'll need use the `predict()` function and create a confusion matrix. Which model is more accurate on the training data? Why do you think this is?
+
+```{r}
+# show your calculations and code here
+prob <- predict(gcredit.logit, gcredit.train, type="response")
+logit.pred <- factor(prob > .5, levels=c(FALSE,TRUE))
+logit.perf <- table(gcredit.train$RESPONSE, logit.pred, dnn = c("Actual", "Predicted"))
+logit.perf
+accuracy <- (logit.perf[1,1]+logit.perf[2,2])/(sum(logit.perf))
+accuracy
+
+dtree.pred <- predict(dtree, gcredit.train, type = "class")
+dtree.perf <- table(gcredit.train$RESPONSE, dtree.pred, dnn=c("Actual","Predicted") )
+dtree.perf
+accuracy <- (dtree.perf[1,1] + dtree.perf[2,2])/(sum(dtree.perf))
+accuracy
+```
+`The results from each model are plotted using the training data for the logistic regression and unpruned decision tree models. The accuracy for the logistic regression model is 78.5 percent while the accuracy for the decision tree model is 82.88 percent. The decision tree is more accurate on the training data set. This could be because the decision tree is overfitted to the data set. The decision tree could also be using a better algorithm for predicting data in this specific instance through the use of information gain.`
+
+## Step 4: Evaluate the performance of the logistic regression model on the validation data and compare its performance to the decision tree model from last assignment.
+
+```{r}
+# show your code here
+prob <- predict(gcredit.logit, gcredit.validate, type="response")
+logit.pred <- factor(prob > .5, levels=c(FALSE,TRUE))
+logit.perf <- table(gcredit.validate$RESPONSE, logit.pred, dnn = c("Actual", "Predicted"))
+logit.perf
+accuracy <- (logit.perf[1,1]+logit.perf[2,2])/(sum(logit.perf))
+accuracy
+sensitivity <- logit.perf[1,1]/sum(logit.perf[1,])
+sensitivity
+specificity <- logit.perf[2,2]/sum(logit.perf[2,])
+specificity
+
+dtree.pred <- predict(dtree, gcredit.validate, type = "class")
+dtree.perf <- table(gcredit.validate$RESPONSE, dtree.pred, dnn=c("Actual","Predicted") )
+dtree.perf
+accuracy <- (dtree.perf[1,1] + dtree.perf[2,2])/(sum(dtree.perf))
+accuracy
+sensitivity <- dtree.perf[1,1]/sum(dtree.perf[1,])
+sensitivity
+specificity <- dtree.perf[2,2]/sum(dtree.perf[2,])
+specificity
+```
+
+
+###_Question_: Which model (logistic regression or decision tree) performs better? Explain your reasoning for your answer.
+`The logistic regression model does better than the decision tree model on the validation data set. The logistic regression model has 76.5 percent accuracy while the decision tree model has 72.5 percent accuracy.  In addition, the logistic regression model outperfroms the decision tree model in sensitivity with .559 versus .412. However, the logistic regression is outperformed by the decision tree in specificity by .015 with the values .871 versus .886.`
+
+
+## Step 5: Think and answer these questions.
+
+
+###_Question_: Given the cost matrix below, revisit the question about which model performs better. Does your answer change? IF so, why?
+
+\begin{table}[]
+\centering
+\begin{tabular}{ll|c|c|}
+\cline{3-4}
+                                                       & \multicolumn{1}{c|}{} & \multicolumn{2}{c|}{\textbf{Predicted}}              \\ \cline{3-4} 
+                                                       &                       & \multicolumn{1}{l|}{Good} & \multicolumn{1}{l|}{Bad} \\ \hline
+\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Actual}}} & Good                  & 0                         & 100                      \\ \cline{2-4} 
+\multicolumn{1}{|l|}{}                                 & Bad                   & 500                       & 0                        \\ \hline
+\end{tabular}
+\end{table}
+```{r}
+# show your code here
+logit.prob <- logit.perf/sum(logit.perf)
+logit.prob
+cost_matrix <- matrix(c(0,500,100,0), nrow=2, ncol=2)
+cost_matrix
+expected_val <- sum(logit.prob * cost_matrix)
+expected_val
+
+dtree.prob <- dtree.perf/sum(dtree.perf)
+dtree.prob
+expected_val <- sum(dtree.prob * cost_matrix)
+expected_val
+```
+
+`Given that the expected values from each model are the same, I would be inclined to say that both models are equal in performance; however, I would value a model that is `
+
+###_Question_: Compare and contrast decision trees to logistic regression. How does each address overfitting, if at all? How do you interpret the output of each?
+`Decision trees and logistic regression both use input variables to define the target variable. These two models are different in that decision trees minimize relative error, while logistic regression minimizes residuals. Overfitting is addressed in decision trees by finding the complexity parameter with the least splits and associated with an xerror within one standard deviation away from the xerror with the least relative error. The effect is removing nodes from the bottom of the tree. Overfitting is addressed in logistic regression by removing variables that have a probability greater than 0.05. The output of each model after being pruned will be more general and therefore more accurate on undetermined data sets.`
+
+###_Question_: At the beginning of this assignment, I told you to be thinking about why it might be advantageous to know the probability of class membership as opposed to just knowing the class membership. Explain why this is.
+`It might be advantageous to know the probability of class membership as opposed to just knowing the class membership because the analyst may want to know the degree to which a person is classified as having good credit or bad credit. For example, the decision tree will classify someone as having bad credit when the probability of having bad credit was at the border of 51%. An analyst using logistic regression would see this and be able to take other factors into consideration to determine the good or bad credit prediction.`
+
+###_Question_: Is there a way to calculate the probability of class membership using the decision tree output? If so, explain how.
+`Yes, the probability of class membership can be determined from the decesion tree output by inspecting the summary() output and analyzing the probabilities in each leaf node.`

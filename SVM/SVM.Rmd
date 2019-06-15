@@ -1,0 +1,73 @@
+---
+title: "SVM"
+output: html_document
+---
+
+PARALLELIZE THAT SHIZ. An example
+```{r}
+library(doParallel)
+library(foreach)
+cl <- makeCluster(4)
+registerDoParallel(cl)
+foreach(i=1:100) %dopar% sqrt(i)
+```
+
+10 fold cross validation mother fucking even more awesomeness since it's parallelized
+```{r}
+#load parallel libraries
+library(doParallel)
+library(foreach)
+cl <- makeCluster(4)
+registerDoParallel(cl)
+
+library(e1071)
+library(parallelSVM)
+i<-0
+#accCalc <- array()
+#pCalc <- array()
+#rCalc <- array()
+#fmeaCalc <- array()
+measures <- foreach(i=1:length(mesonet.train), .combine='cbind') %dopar% {
+  library(e1071)
+  mesonet.train[[i]]$Year <- NULL
+  mesonet.validate[[i]]$Year <- NULL
+  #Build Model
+  supvm <- parallelSVM(STID~., data = mesonet.train[[i]], na.action = na.omit)
+  #Predcit on validation data
+  supvm.predict <- predict(supvm, mesonet.validate[[i]])
+  tab <- table(Actual = mesonet.validate[[i]][,1], Predicted = supvm.predict)
+  #calculate measures
+  #accCalc[i] <- list(accuracy(nbayes.perf))
+  #pCalc[i] <- list(precision(nbayes.perf))
+  #rCalc[i] <- list(recall(nbayes.perf))
+  #fmeaCalc[i] <- list(fmeasure(pCalc[[i]], rCalc[[i]]))
+  accCalc <- accuracy(tab)
+}
+
+```
+
+Support Vector Machines
+```{r}
+library(e1071)
+#had to remove year column because it's constant and cannot scale.
+mesonet.train$Year <- NULL
+mesonet.validate$Year <- NULL
+supvm <- svm(STID~., data = mesonet.train, na.action = na.omit)
+print(supvm)
+summary(supvm)
+
+supvm.predict <- predict(supvm, mesonet.validate)
+
+tab <- table(pred = supvm.predict, true = mesonet.validate[,1])
+
+classAgreement(tab)
+
+tp <- 0
+for(i in 1:ncol(tab)){
+  tp <- tp + tab[i,i]
+}
+accuracy <- tp / sum(tab)
+accuracy
+
+```
+

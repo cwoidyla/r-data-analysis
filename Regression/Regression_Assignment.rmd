@@ -1,0 +1,171 @@
+---
+title: "Regression Assignment"
+author: "Conrad Woidyla"
+date: "April 13, 2016"
+output: pdf_document
+---
+
+# Introduction
+
+The primary goal of multiple linear regression is to predict an unknown value of a continuous target variable of interest using known values of predictor variables. These predictor variables can be continuous or categorical.  A typical business scenario for regression is estimating costs based on available cost drivers. For example, a company might want to estimate the cost per unit of a widget; using historically collected data such as time on a manufacturing machine, number of minutes an employee "touches" the widget during manufacturing, and so forth, they can create a model to estimate this cost per unit. As *Data Smart* points out, regression is the "granddaddy" of data analysis. It is widely used for several reasons. First, it outputs an equation which is easy to interpret and use in practical applications. Second, its built on statistical foundations, specifically statistical distributions. "Why does that matter?" you ask. Well, because statistical assumptions allowed us to solve problems that would otherwise take a lot of computing power. But now that computers have become so powerful (wahahahahah!), this is less of a concern and methods like decision trees or other data mining approaches are more feasible.
+
+The process of creating a regression model can be describe in three basic iterative steps:
+
+1) Fit the model.
+2) Determine and select important predictor variables.
+3) Assess the model fit and confirm that the [statistical assumptions](https://statistics.laerd.com/spss-tutorials/linear-regression-using-spss-statistics.php) are met.
+
+You will iterate through those steps until you are comfortable that you have a good model that fits the data. This assignment is intended to give you practice in this model fitting process.
+
+# Submission Requirements
+You will complete all your work in this RMD file. Submit your completed and "knitted" PDF or Word DOCX file to learn. 
+
+# Data Set
+We will be using data from a [Kaggle competition](https://www.kaggle.com/c/bluebook-for-bulldozers) for this assignment. Per the competition description, here is an explanation of the objective of this assignment:
+
+>The goal of the contest is to predict the sale price of a particular piece of heavy equiment at auction based on it's usage, equipment type, and configuaration.  The data is sourced from auction result postings and includes information on usage and equipment configurations.[^1]
+
+[^1]: https://www.kaggle.com/c/bluebook-for-bulldozers
+
+So, your objective is to predict the auction selling price of heavy equipment using known characteristics about it. 
+
+I am providing you with a mostly cleaned up subset of the data in the `Bulldozer_Sample.csv` file. You'll need to reference the `BulldozerDataDictionary.xlsx` in order to understand the data.
+
+
+# Directions
+We will using some functions from the `car` library so we can load it now.
+
+```{r}
+library(car)
+```
+
+Okay! Are you ready? Let's begin.
+
+## Step 0: Preparing the Data
+
+I've said it before, but I'll say it again. Eighty percent of your time on a data analysis project will usually be data preparation. Lucky for you, I took compassion on your souls and am providing you with a mostly clean (like [mostly dead](https://www.youtube.com/watch?v=D9tAKLTktY0) on Princess Bride) data set. Compared to the original data set, this data set:
+
+1) has null (empty) values removed. In order to ensure that the data is suitable for providing accurate regression models, we often have to remove null values from the dataset. In Excel, filtering out empty cells in each column is a relatively simple way to remove such values. In reality, because data is expensive, you do not always want to just throw away missing values or observations with missing values. (Imputation)[https://en.wikipedia.org/wiki/Imputation_%28statistics%29] is the process of dealing with these missing values. If you read that Wikipedia page, you'll see that there are other approaches besides deleting the data. But, in order to focus on the regression model building process, just go ahead and remove the null values for this assignment.
+
+>NOTE: Removing null values includes removing entire columns that are completely empty. The removal of empty columns can be justified because they will not contribute to our model. Many completely empty columns were removed from the original Bulldozer data set.
+
+2) has been greatly simplified. There were hundreds of models of bulldozers in the original data set. The sample contains only a few. This should greatly simplify the task.
+
+Yet, despite those changes to the data set, there still reminds stuff for you to do. Consider these things:
+
+1. Columns that have no variation in them (i.e., only a single value) will have no impact on the response variable because they do not change. In other words, a variable that does not change is useless because we can't say, "A change in this variable impacts the target variable in such and such a way." So, in short, remove columns with no variance.
+
+2. Code as many of the categorical variables as possible in more meaningful ways. For instance, consider the "Forks" variable. It takes on "None or Unspecified" and "Yes" as possible values. In reality, the bulldozer either has forks (1 or yes) or does not (0 or no). If you recode it as 0 or 1, or 'no' or 'yes' it will make it easier to interpret the results in your model.. 
+  
+3. Clean up formatting. Fields like 'saledate' will probably need some reformatting. Notice those timestamps do not just include dates, but also times. Howbeit the times seem to all be 12:00 AM (midnight). You need to deal with these. In fact, in the spirit of 2. above, you could extract out the month, day, and year into separate columns (i.e., code month, day, and year separately).
+
+4. Be aware of multicollinearity. Multicollinearity simply means that some of the predictor variables are highly correlated. This causes problems for regression. You don't want to include two highly correlated variables in your model. For an example, consider these two predictor variables in the bulldozer data: *MachineHoursCurrentMeter* and *UsageBand*. Can  you see that *UsageBand* was probably derived from *MachineHoursCurrentMeter*?
+  
+So, yes, if you have just skimmed this part, skipped it altogether, or were even tempted to skim or skip it it, then you should listen to Mr. T. (Just be sure to replace "the" with "you."
+
+## Step 1: Load the Data 
+
+At this point, you should have this part down; so, I'll leave it to you to put in your data-loading code below. But, do not just do it blindly. Think about how each column should be represented (e.g., integer, character string, or factor).
+
+```{r}
+bulldozer <- read.csv("Bulldozer_Sample_2.csv", as.is=TRUE)
+bulldozer$fiProductClassDesc <- factor(bulldozer$fiProductClassDesc)
+bulldozer$Enclosure <- factor(bulldozer$Enclosure)
+bulldozer$Hydraulics <- factor(bulldozer$Hydraulics)
+```
+
+
+## Step 2: Fit the Model
+
+After loading the data, we can begin to experiment with different combinations of predictor variables. As already mentioned several times, building a regression model is iterative. At this point, you should iterate between the first two steps of model building, namely:
+ 
+1) Fit the model.  (using `lm()`)
+2) Determine and select important predictor variables.
+
+Of course, intuitively, we start with step 2), right?  Yes, right! First think about which of the variables in your data set you would expect to be good predictors of a bulldozer's sales price....that's right, stop reading at this point and think. Look at your column names and look them up in `BulldozerDataDictionary.xlsx`. Make a list of variables that you think would be good predictors.
+
+**QUESTION: List variables here that you think will be good predictors of bulldozer sales price. For each variable, give a brief explanation as to why you think it will be a good predictor.**
+`
+auctioneer ID - The auctioneer could be a good variable since it represents a specific location and buyer for a bulldozer.
+YearMade - The year the manufacturer created the bulldozer is significant since the age of the bulldozer indicates depreciation in value.
+MachineHoursCurrentMeter - The amount of use a bulldozer experiences will depreciate its value.
+SaleDateDay - The day a bulldozer is sold may correlate to the sale price. For instance, a subsidy check may be dispersed during a certain day of the month that correlates to days bulldozers are bought.
+SaleDateMonth - The month a bulldozer is sold may correlate tothe sale price. For instance, a certain month in the year may have more sales than others because 
+SaleDateYear - The year a bulldozer is bought may correlate to sale price. Some years may be better for bull dozer sales than others depending on when a older bulldozers are retired.
+fiBaseModel - The base model, model series, and product class description could reflect sales price in that better base models cost more money.
+fiModelSeriesCoded - See fiBaseModel
+fiProductClassDesc - See fiBaseModel
+ForksCoded - The addition of a fork could affect sales price by adding to the cost of the bulldozer.
+`
+Once you've created your list, then start to explore the relationship between the variables in your list and sales price. If you are thinking, "Hmmm...this would be a good place for a scatterplot matrix!" then you are thinking correctly!
+
+As you look at different scatterplot matrices, keep in mind that you want to avoid multicollinearity (i.e., high correlations among your predictor variables)!
+
+```{r}
+bullScatterPlot <- scatterplotMatrix(~ SalePrice + auctioneerID + YearMade + MachineHoursCurrentMeter + SaleDateDay + SaleDateMonth + SaleDateYear + fiBaseModel + fiModelSeriesCoded + fiProductClassDesc + ForksCoded, data = bulldozer, ellipse=FALSE, smooth=FALSE)
+
+```
+Based on your scatterplot matrices, add and remove predictor variables to refine your list.
+
+**QUESTION: Provide your updated "potential predictor" list here.**
+`auctioneer ID
+YearMade
+MachineHoursCurrentMeter
+SaleDateYear
+fiBaseModel
+fiModelSeriesCoded
+fiProductClassDesc`
+
+Now, consider potential [interactions](https://en.wikipedia.org/wiki/Interaction_%28statistics%29) between variables in the variables in your list. Remember an interaction occurs when the combined effect of two predictor variables is not just additive. [This webpage](http://courses.washington.edu/smartpsy/interactions.htm) explains interactions well. Look at the eight different plots at the bottom.
+
+**QUESTION: Are there pairs of predictor variables you would expect to interact? If so, list those pairs here and explain why you think their combined effects mightnot just be additive.**
+`YearMade and MachineHoursCurrentMeter
+YearMade and SaleDateYear`
+
+Now that you've identified intractions, remember that in `R` you will model interactions in the formula like this `y ~ ... + A:B` where `A` and `B` are variables from your data. Here's an example, `y ~ ... + YearMade:state`.
+
+Now, finally, you are read to fit your initial model. We'll start by fitting your initial model. Fit a regression model that includes your potential predictors and the interactions you identified. 
+
+After you fit the model look at the summary of your model. Pay close attention to R-squared, Adjusted R-squared, and p-values within the models you develop. Generally, the higher the R-squared and Adjusted R-squared, and the lower the p-value, the better the model is fitted to the data.
+
+```{r}
+# use lm() to fit your model here
+bull.fit1 <- lm(formula = SalePrice ~ auctioneerID + YearMade + MachineHoursCurrentMeter + SaleDateYear + fiBaseModel + fiModelSeriesCoded + fiProductClassDesc + YearMade:MachineHoursCurrentMeter + YearMade:SaleDateYear, data = bulldozer)
+
+summary(bull.fit1)
+```
+
+
+**QUESTION: Reference the R-squared, adjusted R-square, and model p-value (not the coefficient p-values) to describe how well your model fits the data. You should be able to dedicate at least a sentence to each of those three values and explain what they tell you.**
+`The R-squared value is 0.6612 which means that 66 % of the variation is explained by this model. The Adjusted R-squared value explains the correlative influence of an additional variable added to the model. The adjusted R-squared value is 0.6439 which is less than the R-squared value as expected. The model p-value is less than 2.2e-16 indicating that the probability of the model obtaining the target variable's values is greater than 99.99 %. The p-value indicates the predictive capability of the model against the just guessing the mean of the target variable sales price. `
+
+**QUESTION: Which of the predictor variables appear to be solid contributors that help explain the variance in the target variable?**
+`The top five predictor variables that appear to be solid contributors in helping to explain the variance in the target variable are the following in descending order of importance: fiProductClassDescWheel Loader - 200.0 to 225.0 Horsepower, MachineHoursCurrentMeter, YearMade:MachineHoursCurrentMeter, fiProductClassDescWheel Loader - 175.0 to 200.0 Horsepower, and fiBaseModel.`
+
+**QUESTION: What predictor variables do you think you should remove from the model?**
+`I should remove the fiModelSeriesCoded variable.`
+
+Go ahead and remove those predictor variables from your model and compare your new model to your old model. Remember, you use the `anova()` function to compare **nested** models.
+
+```{r}
+# create your new model and compare it to your old model here
+bull.fit2 <- lm(formula = SalePrice ~ auctioneerID + YearMade + MachineHoursCurrentMeter + SaleDateYear + fiBaseModel + fiProductClassDesc + YearMade:MachineHoursCurrentMeter + YearMade:SaleDateYear, data = bulldozer)
+
+summary(bull.fit2)
+anova(bull.fit1, bull.fit2)
+
+```
+
+**QUESTION: Compared to your old model, how does your new model fit? How do you know that?**
+`The new model is very similar to the old model. The R-squared value, adjusted R-squared value, and p-value do not change at all. This indicates the variable fitModelSeriesCoded is extremely insignificant in explaining the variance of SalePrice.`
+
+**QUESTION: Did you drop any variables that you shouldn't have?  How do you know this? Be sure to show some code that helped you arrive at this conclusion.**
+`I tried dropping the yearMade variable, but realized that dropping this variable caused the ANOVA test to report a probability close to the p value = 0.05. The p value was much smaller for less significant variables. This is how I know that the YearMade variable is important.`
+```{r}
+# create your new model and compare it to your old model here
+bull.fit3 <- lm(formula = SalePrice ~ auctioneerID + MachineHoursCurrentMeter + SaleDateYear + fiBaseModel + fiProductClassDesc + YearMade:MachineHoursCurrentMeter + YearMade:SaleDateYear, data = bulldozer)
+
+summary(bull.fit3)
+anova(bull.fit2, bull.fit3)
+
+```

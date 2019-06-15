@@ -1,0 +1,78 @@
+---
+title: "Naive Bayes"
+output: html_document
+---
+Load data
+```{r}
+setwd("C:/Users/Owner/Desktop/DM_proj")
+FARM <- read.csv("FARM_Bowling-Green-5-S_Warren_Discrete.csv")
+HTFD <- read.csv("HTFD_Hartford-3-E_Ohio_Discrete.csv")
+PGHL <- read.csv("PGHL_Hopkinsville-6-N_Christian_Discrete.csv")
+GRHM <- read.csv("GRHM_Henderson-5-E_Henderson_Discrete.csv")
+MRRY <- read.csv("MRRY_Murray-1-W_Calloway_Discrete.csv")
+RSVL <- read.csv("RSVL_Russellville-2-W_Logan_Discrete.csv")
+```
+
+Leave in NA values
+```{r}
+#all data in mesonet
+allMesonet <- rbind(FARM, GRHM, HTFD, MRRY, PGHL, RSVL) 
+```
+
+Create training and validation set
+```{r}
+train <- sample(nrow(allMesonet), 0.1*nrow(allMesonet))
+mesonet.train <- allMesonet[train,]
+mesonet.validate <- allMesonet[-train,]
+```
+
+10 fold cross validation mother fucking awesomeness
+```{r}
+#load parallelization libraries
+library(doParallel)
+library(foreach)
+cl <- makeCluster(4)
+registerDoParallel(cl)
+
+library(e1071)
+i<-1
+#accCalc <- array()
+#pCalc <- array()
+#rCalc <- array()
+#fmeaCalc <- array()
+measures <- foreach(i=1:length(mesonet.train), .combine='cbind') %dopar% {
+  library(e1071) #each R thread must have this library
+  #Build Model
+  nbayes <- naiveBayes(STID~., data = mesonet.train[[i]])
+  #Predcit on validation data
+  nbayes.pred <- predict(nbayes, as.data.frame(mesonet.validate[[i]]))
+  nbayes.perf <- table(mesonet.validate[[i]]$STID, nbayes.pred, dnn=c("Actual","Predicted"))
+  #calculate measures
+  #accCalc[i] <- list(accuracy(nbayes.perf))
+  #pCalc[i] <- list(precision(nbayes.perf))
+  #rCalc[i] <- list(recall(nbayes.perf))
+  #fmeaCalc[i] <- list(fmeasure(pCalc[[i]], rCalc[[i]]))
+  accCalc <- accuracy(nbayes.perf)
+}
+
+```
+
+Train Naive Bayes Model and predict
+```{r}
+library(e1071)
+nbayes <- naiveBayes(STID~., data = mesonet.train)
+
+nbayes.pred <- predict(nbayes, as.data.frame(mesonet.train))
+nbayes.perf <- table(mesonet.train$STID, nbayes.pred, dnn=c("Actual","Predicted"))
+nbayes.perf
+```
+
+Calculate accuracy of Naive Bayes on training set
+```{r}
+tp <- 0
+for(i in 1:ncol(nbayes.perf)){
+  tp <- tp + nbayes.perf[i,i]
+}
+accuracy <- tp / sum(nbayes.perf)
+accuracy
+```

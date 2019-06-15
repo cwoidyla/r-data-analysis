@@ -1,0 +1,359 @@
+---
+title: 'MGMT 635: Descriptive Analytics Assignment'
+author: "Conrad Woidyla"
+date: "February 11, 2016"
+output: pdf_document
+---
+
+<!-- BE SURE AND PUT YOUR NAME UP IN THE AUTHOR FIELD ON LINE 3 -->
+
+<!-- 
+INSTRUCTIONS:  
+
+This is an R Markdown file. You will do all your work inside this file for this assignment. Refer to the notes at the top of the LearningR_Assignment.rmd for more details on R Markdown files.
+
+I will accept either a DOCX or PDF files for your submission.  
+-->
+
+# Introduction
+The purpose of this assignment is to increase your ability to generate descriptive statistics and plots in R. You will be leveraging the "R in Action" book by Robert Kabacoff extensively in this assignment. See the course schedule for specific sections of the book you should be using. I'll refer to specific pages and listings throughout this assignment. 
+
+# Assignment Instructions
+I also recommend completing the _Data Visualization_ module of the `swirl` _Data Analysis_ course. You can install the _Data Analysis_ course with the following command in R (assuming you already have `swirl` installed):
+
+```{r eval=FALSE}
+library(swirl)
+install_from_swirl("Data Analysis")
+```
+
+The _Data Analysis_ course has three modules. You do not need to complete the first two on central tendancy (i.e., mean, median, and mode) or dispersion (i.e., variance, standard deviation) unless you need to refresh those concepts. Also, you do not need to watch the videos during the module(s) when it prompts you.
+
+## Dataset
+To complete this assignment, you will need the [Allstate Purchase Prediction Challenge](https://www.kaggle.com/c/allstate-purchase-prediction-challenge/data) from [Kaggle](www.kaggle.com). You will only be using the `train.csv` file. I have provided a copy of it on Learn with this assignment, but renamed it `AllStatePurchases.csv`. For a description of the data, please refer to the [Allstate Purchase Prediction Challenge](https://www.kaggle.com/c/allstate-purchase-prediction-challenge/data) page.
+
+# Assignment Requirements
+The questions for this assignment are contained in the *DescriptiveAnalytics_Assignment.rmd* file. You will do your work in that file and then generate a DOCX or PDF file from it. Look at the comments at the top of the *LearningR_Assignment.rmd* for further instructions on how to do this. 
+
+**Submit your completed assignment as a DOCX or PDF document to Learn.**
+
+
+# Loading the Data
+When you import the `AllstatePurchases.csv` file, do not let R convert the categorical variables to factors. *Remember that `?` (help) is your friend. Try `?read.csv`.* It does not make sense for some of the variables, like `time`, to be factors. In addition, it won't convert all the necessary variables to factors that we would like to be factors. 
+
+
+# Preparing the Data
+1. The first thing you need to do is convert the following variables to factors: `record_type`, `day`, `state`, `homeowner`, `car_value`, and `married_couple`. Refer to the [variable descriptions](https://www.kaggle.com/c/allstate-purchase-prediction-challenge/data) to understand the meaning of the variables and know how to apply the appropriate labels to the factors, where needed. If the variable description specifies labels -- for instance, for `married_couple` 1=no and 2=yes -- then include them in the factor. Again, `?factor` will be helpful here.
+```{r}
+allstate <- read.csv("AllstatePurchases.csv")
+allstate$record_type <- factor(allstate$record_type)
+allstate$day <- factor(allstate$day)
+allstate$homeowner <- factor(allstate$homeowner)
+allstate$married_couple <- factor(allstate$married_couple)
+```
+
+
+# Exploring structure and summary statistics
+2. Now view the structure of your data frame with the `str()` function to insure that `record_type`, `day`, `state`, `homeowner`, `car_value`, and `married_couple` are factors with the correct levels. Notice that's the same view contained in the **Environment** tab in the upper-right quadrant of RStudio.
+```{r}
+str(allstate)
+```
+
+3. Produce a `summary` of the Allstate data frame. Is the `car_age` skewed? Is `cost` skewed? Explain how you know the answers to these questions.
+```{r}
+summary(allstate)
+```
+The car_age summary reports a median of 7 and a mean of 8.139. Since the mean is greater than the median, this variable is skewed to the right.
+
+The cost summary reports a median of 635 and a mean of 635.8. Since the median and mean are very closely the same, this variable is not skewed.
+
+4. In a two dimensional table, display the _count_, _mean_, _std dev_, _skew_, _kurtosis_, and _standard error_ of these variables: `group_size`, `car_age`, `age_oldest`, `age_youngest`, `duration_previous`, and `cost`. HINT: See Listing 7.2 of Kabacoff pg. 139. This is a great example of how to use `sapply`. It also provides you the formulas for skew and kurtosis. If you don't remember the formula for _standard error_, "google" it.
+```{r}
+mystats <- function(x, na.omit=FALSE){ 
+    if (na.omit) 
+      x <- x[!is.na(x)]
+    m <- mean(x)
+    n <- length(x)
+    s <- sd(x)
+    skew <- sum((x-m)^3/s^3)/n
+    kurt <- sum((x-m)^4/s^4)/n-3
+    se <- s/sqrt(n)
+    return(c(count=n,mean=m,std_dev=s,skew=skew, kurtosis=kurt,
+             std_error=se))}
+vars <- c('group_size','car_age','age_oldest','age_youngest',
+          'duration_previous', 'cost')
+sapply(allstate[vars],mystats)
+```
+
+
+5. If you setup your `mystats` function like Kabacoff did on pg. 139, you probably noticed that the `duration_previous` column contains NA values. You can pass a **True** value to the `na.omit` parameter of the `mystats()` function by including `na.omit=T` as the third parameter in the `sapply` function. Try it.
+```{r}
+sapply(allstate[vars],mystats,na.omit=T)
+```
+
+
+6. As you'll discover, there are a plethora of packages and ways to generate simple descriptive statistics in R. One that Kabacoff does not cover is the `ddply()` function found in the `plyr` package. Install the `plyr` package with this command: `install.packages("plyr")`. Then load it in with the `library()` function and display the `cost` _mean_ and _standard error_ for each of the `married_couple` by `homeowner` groups using `ddply()`. Remember! Help is your friend: `?ddply`.
+```{r}
+library(plyr)
+ddply( allstate, c("married_couple","homeowner"), summarize, 
+       mean=mean(cost), std_error=sd(cost)/sqrt(length(cost)) )
+```
+
+
+# Creating count tables
+7. Create a table to display the number of records in each state. Which state is most represented in this data set? 
+```{r}
+table(allstate$state)
+```
+Florida is the most represented state in this data set.
+
+8. Create a table to display how many shopping points and purchase points are in the data. What's the approximate ratio of purchase points to shopping points? Hopefully, you have noticed that the `table()` function is useful for creating *count* tables.
+```{r}
+sptable <- with(0, table(allstate$record_type))
+sptable
+prop.table(sptable)
+```
+
+
+9. Now, create a two-way table showing the counts of days of week and states, **BUT** only include purchases (i.e., exclude shopping points).
+```{r}
+purchRec <- subset(allstate, record_type == 1)
+PDS_table <- table(purchRec$day, purchRec$state)
+PDS_table
+```
+
+
+10. Create a three-way of table of counts using `group_size`, `homeowner` and `risk_factor` using the `xtabs()` function.
+```{r}
+GHR_table <- xtabs(~group_size + homeowner + risk_factor, data=allstate)
+GHR_table
+```
+
+> NOTE: The `xtabs()` function employs R's formula notation which takes on the pattern of $y ~ x_1 + x_2 + ... + x_n$, where $y$ is the dependent variable, and $x_n$ are the independent variables. It is common when using `xtabs()` to leave out the left-hand side of the equation if you just want to generate counts for each of the cross-tabulated groups. For example, with this data set, you might specify `~ risk_factor + day` to get a two-way table.  See **Listing 7.11** on pg. 149 in the Kabacoff book for an example. If you want want to sum the data in each cross-tabulated group, then you can specify what variable you want to sum on the left side of the equation. For example, if you wanted a sum of the costs in the previously specified two-way table, your formula would look like this `cost ~ riskr_factor + day`.
+
+
+11. You probably noticed that the third dimension in that table is displayed kind of clunky. You can fix this by wrapping your table in the `ftable()` function. Again, refer to **Listing 7.11** for an example. Go ahead and clean up your table with the `ftable()` function.
+```{r}
+ftable(GHR_table)
+```
+
+# Creating Other Aggregated Tables
+
+12. Create a table showing the average car age for each of the `car_value` levels. NOTE: Prior questions are dealing with counts, this is dealing with means. You'll need to use another function, try `aggregate()`. If you look in the examples for `aggregate()`, you'll notice that you can use the R formula notation to aggregate the data.
+```{r}
+aggregate(allstate$car_age, by=list(value=allstate$car_value), FUN=mean)
+```
+
+# Creating plots and graphs
+
+We'll start with bar plots. You've all seen them, but have you really thought about them. For instance, what kind of variable (i.e., categorical or continuous) do bar plots display? If you are thinking, "Hmmm, the different bars on the x-axis have to be driven by a categorical variable...", then you are absolutely correct. Well, that takes care of the x-axis, what about the y-axis? You might be tempted to think "Easy! Continuous!", but you would not be completely correct. The y-axis usually represents some aggregated value (e.g., a sum or a mean). So with that in mind, let's get going!
+
+13. Create a bar plot displaying the number of records that are shopping points and the number of records that are purchase points. Give it an appropriate "main" title and axis labels. NOTE: You won't be able to feed the raw data frame into the `barplot()` function. You'll need to create a table first to create the aggregated values you want to plot. See pg. 118-120 of Kabacoff for examples.
+```{r}
+recTable <- table(allstate$record_type)
+barplot(recTable, main="Record Type", xlab="Shopping = 0, 
+        Purchase = 1", ylab="Frequency")
+```
+
+
+14. Now add some color to the bar plot in 14). Make shopping points blue and purchase points green. HINT: You can use "blue" and "green" in your color vector.
+```{r}
+barplot(recTable, main="Record Type", xlab="Shopping = 0, 
+        Purchase = 1", ylab="Frequency", col=c("blue","green"))
+```
+
+
+15. Create a bar plot (with color) that displays the average cost of a policy for only the purchase points for each of the `risk_factor` levels. Again you'll need to create a table first - try `aggregate()` or `ddply()`. You need to give `barplot()` a vector, not a matrix or data frame. CHALLENGE: If you want to play with different colors that are automatically generated, try using the [RColorBrewer package](https://cran.r-project.org/web/packages/RColorBrewer/RColorBrewer.pdf).
+```{r}
+purchRec <- subset(allstate, record_type == 1)
+aggPR <- aggregate(purchRec$cost,
+          by=list(RiskFactor=purchRec$risk_factor), 
+          FUN=mean)
+barplot(xtabs(x~RiskFactor,aggPR),main="Avg Cost of Risk Factor Levels",
+        xlab="Risk Factor", ylab="Cost")
+```
+
+
+Enough of bar plots. Time for histograms! Yay! A histogram is a special kind of bar plot intended to display the distribution of a variable. Why is it special? Well, there is no categorical variable on the x-axis. The x-axis is a bunch of "buckets". These buckets hold small ranges of the continuous variable you are plotting. So what kind of variable is on the **_y_**-axis? If you are thinking, "A continuous variable," then you are incorrect. It's not a continuous variable. It's the _count of the number of values of the continuous variable_ that falls into each bucket. So a histogram only involves a single variable.
+
+16. Create a histogram of the `cost` variable using only the purchase points. Add a title and a label for the x-axis. Refer to pp. 125-126 of Kabacoff for help. Is `cost` normally distributed? (Oh, yeah! Now we are really wiping away the Statistics cob webs, huh? Normally distributed? What the heck is that? "google" it if you need to. **It will be important when we get to the regression world.**)
+```{r}
+purchRec <- subset(allstate, record_type == 1)
+hist(purchRec$cost,xlab="Cost",main="Cost Per Purchase")
+```
+Cost seems to be normally distributed.
+
+17. Now increase the number of bins in the histogram you created in 17) to 25.
+```{r}
+hist(purchRec$cost,breaks=25,xlab="Cost",main="Cost Per Purchase")
+```
+
+
+The distribution of `cost` appears pretty much normally distributed (except for that rascally long tail on the left), but sometimes its not easy to see the distribution with a histogram. That is when the density plot is useful. (No, McFly! You are not my density!)
+
+18. Create a density plot for `cost`. Refer to **Listing 6.7** in Kabacoff for help.
+```{r}
+d <- density(purchRec$cost)
+plot(d, main="Kernel Density of Cost Per Purchase")
+```
+
+
+19. Now, if you are obsessive like I am, you are probably being driven nuts by that elongated left tail on our distribution plots. Find the values that are causing it and decide if you can remove them. If you remove them, create a new density plot. If you decide not to remove them, explain why. Either way, revisit the question of whether the `cost` variable is normally distributed and explain your thinking.
+
+>TIP: I suggest storing the `cost` column into a separate variable for this problem - like this: `myCost <- [your data frame name]$cost`. Then operate on `myCost` and it to generate your new density plot.
+```{r}
+myCost <- purchRec$cost
+length(myCost)
+summary(myCost)
+mCost <- mean(myCost)
+sdCost <- sd(myCost)
+maxCost <- max(myCost)
+acceptedVariation <- maxCost - mCost
+newMin <- mCost - acceptedVariation
+outliers <- which(myCost < newMin)
+newMin
+length(outliers)
+newCostIndex <- which(myCost >= newMin)
+d <- density(myCost[newCostIndex])
+plot(d, main="Kernel Density of Cost Per Purchase")
+```
+If we accept the max value of myCost, then we should also accept a min value with a corresponding distance from the mean. The calculations indicate 429.9371 is the ideal min value, and that there are 50 values that are less than 429.9371. Truncating the 50 values is insignificant compared to the 96959 other points of data. In addtion, it eliminates the left tail resulting in a more normal distribution for cost.
+
+Now let's move on to box plots. Kabacoff pg. 129 has a good description of box plots, if you need refreshing. In short, box plots are another perspective on the distribution of a variable, only focused on the median and quartiles. (Oh man! What's the difference between a _mean_ and a _median_?!)
+
+20. Create a simple box plot of the `age_youngest` variable. Add an appropriate y-axis label and main title.
+```{r}
+boxplot(allstate$age_youngest, ylab="Age", 
+        main="Youngest Ages In Customer Group")
+```
+
+21. Now create a box plot to compare the distribution of the youngest age between whether a married couple is on the policy or not. HINT: You'll need to use the R formula notation. Add the proper axis labels.
+```{r}
+boxplot(age_youngest ~ married_couple, data=allstate, 
+        main="Youngest Age Based On Marriage Status", 
+        ylab="Age", xlab="Marriage Status: 0=No, 1=Yes")
+```
+
+22. Create a box plot to compare the age of a car on the policy with the value of the car. Add appropriate axis labels. Based on the box plot, which level of `car_value` do you think represents the cars of least value?
+```{r}
+boxplot(car_age ~ car_value, data=allstate, 
+        main="Car Age Based On Car Value", ylab="Age", xlab="Value")
+```
+The 'a' level of car_value represents the cars of least value. This is because the 'a' level represents the oldest cars and a car's value typically depreciates with age.
+
+Now we'll move on to Chapter 11 of Kabacoff and cover scatter plots (pp. 256). Scatter plots are useful for comparing the relationship (think correlation!) between two _continuous_ variables. (That's right! Say goodbye to the categorical in this realm!)
+
+23. Show the relationship between the oldest age and the cost of policies **purchased** in New Mexico with a scatter plot. Refer to **Listing 11.1** for help. HINT: I recommend extracting out the records for New Mexico and purchases into a separate variable.
+```{r}
+nmState <- subset(allstate, state == 'NM')
+nmPurch <- subset(nmState, record_type == 1)
+plot(nmPurch$age_oldest, nmPurch$cost,
+     ylab="Cost", xlab="Oldest Age", 
+     main="Cost of Policies Purchased in NM Vs Age")
+
+```
+
+
+24. Now fit a smoothed line on the scatterplot using the `lines()` and `lowess()` functions to emphasize any relationship between the age of the oldest person on the policy and the cost of the policy. Again, see **Listing 11.1** for help. NOTE: You might need to make the line a different color than the points on the plot. 
+
+```{r}
+plot(nmPurch$age_oldest, nmPurch$cost,
+     ylab="Cost", xlab="Oldest Age", 
+     main="Cost of Policies Purchased in NM Vs Age")
+lines(lowess(nmPurch$age_oldest, nmPurch$cost),col="red", lwd=2, lty=2)
+```
+
+## A Learning Detour
+As already mentioned, scatter plots are great for seeing the correlation between two variables. We are now going to take a side trip here and understand correlation a little better using R. As you probably know, a perfect correlation is _r_ = 1. Two variables that are perfectly uncorrelated have an _r_ = 0. Let's use R to illustrate this.
+
+First, let's create two uncorrelated variables. "How do we do this?", you ask. Let's just create two independent vectors of values drawn randomly from the normal distribution and plot them.  Like this:
+
+```{r}
+x = rnorm(100)
+y = rnorm(100)
+plot(x, y)
+```
+
+Now calculate the correlation between them, like this:
+
+```{r}
+cor(x,y)
+```
+
+Now, your challenge (if you choose to accept it, which you probably ought to since this assignment is graded) is to create two variables that are perfectly correlated and plot them.
+
+25. Create and plot two variables that are perfectly correlated.
+```{r}
+x <- c(1:100)
+y <- c(1:100)
+plot(x,y)
+cor(x,y)
+```
+
+
+26. Now use a scatterplot to compare the duration of the customers' previous insurance issuer with the cost for both New Mexico and Colorado. Use only the "purchase" data. Include labels **_and barplots_** on the x and y axes. 
+
+HINT: Again, subset out the data you need first. 
+
+HINT #2: Use the `scatterplot()` function from the `car` library as shown on pg. 258 in the Kabacoff book. You'll need to click the "Zoom" button in the "Plots" window to get a good view of it.
+
+HINT #3: You will also need to reset the `state` factor, something like this: `nm_co_purchased$state <- factor(nm_co_purchased$state)`.
+
+```{r}
+library(car)
+purchRec <- subset(allstate, record_type == 1)
+nm_co_purch <- subset(purchRec, state == 'NM' | state == 'CO')
+nm_co_purch$state <- factor(nm_co_purch$state)
+scatterplot( cost~duration_previous | state, 
+            data=nm_co_purch,xlab="Previous Duration",ylab="Cost",
+            main="Previous Duration Vs Purchase Cost in CO and NM", 
+            legend.plot = TRUE,
+            boxplots = "xy")
+```
+Which state has higher policy costs?
+New Mexico has higher policy costs.
+
+27. Using the subset of data you created for New Mexico and Colorado, create a scatter plot matrix (like the one shown on pg. 260) of the following variables: `car_age`, `risk_factor`, `age_oldest`, `duration_previous`, and `cost`. Add an appropriate title to the plot.
+
+
+```{r}
+scatterplotMatrix(~ car_age + risk_factor + age_oldest + 
+                    duration_previous + cost, data=nm_co_purch, 
+                  spread=FALSE, smoother.args=list(lty=2), 
+                  main="Scatter Plot Matrix")
+```
+What are those plots down the diagonal of the plot matrix? Which variable is the most normally distributed? Which is the least?
+
+The plots down the diagonal are the variables: `car_age`, `risk_factor`, `age_oldest`, `duration_previous`, and `cost`.  
+The variable that is the most normally distributed is cost. 
+The variable that is least normally distributed is risk_factor.
+
+Which two variables are the most positively correlated? negatively correlated?
+
+The two variables most positively correlated are car age and age oldest. 
+The two variables most negatively correlated are car age and cost.
+
+# Challenge Questions (no not extra credit questions)
+
+Now that you have you really "whet your awa whistle" (as my 5 year-old might say when she's older and still can't pronounce her r's), I'm going to give you two open-end questions where you need to employ your R-descriptive-statistics-plotting skills to answer. Good luck!
+
+28. (Descriptive Table) Which state has highest average policy cost for policies purchased on Fridays?
+
+>HINT: This [page](http://www.statmethods.net/management/sorting.html) will be helpful in finding the maximum of the average costs.
+```{r}
+purchRec <- subset(allstate, record_type == 1)
+fridayRec <- subset(purchRec, day == 4)
+avgCostStateF <- aggregate(list(Avg_cost = fridayRec$cost), by= list(State=fridayRec$state), FUN=mean)
+avgCostStateF <- avgCostStateF[order(-avgCostStateF$Avg_cost),]
+avgCostStateF
+```
+Delaware has the highest average policy cost for policies purchased on Fridays.
+
+29. (Graph or Plot) Your boss has requested to see the separate distributions of the oldest people on purchased policies from CO, ID, NM, and UT. He wants to see the oldest age distribution of each of the four states on a single plot.
+```{r}
+COIDNMUT <- subset(allstate, state == 'CO' | state == 'ID' |
+                     state == 'NM' | state == 'UT')
+COIDNMUT$state <- factor(COIDNMUT$state)
+boxplot(age_oldest ~ state, data = COIDNMUT, ylab="Age Oldest", 
+        xlab="State", main="Age Oldest in CO, ID, NM, and UT")
+```
+

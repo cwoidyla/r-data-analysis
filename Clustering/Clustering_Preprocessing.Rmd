@@ -1,0 +1,138 @@
+---
+title: "Clustering"
+output: html_document
+---
+
+Load data
+Average out NAs
+Scale data
+
+
+```{r}
+setwd("C:/Users/Owner/Desktop/DM_proj/Clustering")
+load("clustering_env.RData")
+FARM <- read.csv("FARM_Bowling-Green-5-S_Warren_Discrete.csv")
+HTFD <- read.csv("HTFD_Hartford-3-E_Ohio_Discrete.csv")
+PGHL <- read.csv("PGHL_Hopkinsville-6-N_Christian_Discrete.csv")
+GRHM <- read.csv("GRHM_Henderson-5-E_Henderson_Discrete.csv")
+MRRY <- read.csv("MRRY_Murray-1-W_Calloway_Discrete.csv")
+RSVL <- read.csv("RSVL_Russellville-2-W_Logan_Discrete.csv")
+
+#Trim unneeded columns
+FARM$X <- NULL
+GRHM$X <- NULL
+HTFD$X <- NULL
+MRRY$X <- NULL
+PGHL$X <- NULL
+RSVL$X <- NULL
+```
+
+Clean and preprocess data. Replace the NAs with the column average
+```{r}
+#all data in mesonet
+mesonet <- list(FARM, GRHM, HTFD, MRRY, PGHL, RSVL)
+#where newly processed data will be stored
+newMeso <- list()
+####Data Preprocessing
+#Get NA values
+j <- 0
+for (DATA in mesonet){
+  j <- j + 1
+  na.DATA <- list()
+  #make list of NAs for each column
+  for(i in 1:ncol(DATA)){
+    na.DATA <- c( na.DATA, list(which( is.na(DATA[,i]) ) ) )
+    DATA[na.DATA[[i]],i]
+  }
+  #Print NA Values
+  #for(i in 1:ncol(DATA)){
+    #print(DATA[na.DATA[[i]],i])
+  #}
+  #Replace NA with column mean
+  for(i in 1:ncol(DATA)){
+    DATA[is.na(DATA[,i]), i] <- mean(DATA[,i], na.rm = TRUE)
+  }
+  #Print replaced NA Values
+  #for(i in 1:ncol(DATA)){
+    #print(DATA[na.DATA[[i]],i])
+  #}
+  #print(j)
+  #store processed data in new variable
+  newMeso[[j]] <- DATA
+}
+```
+
+Check Preprocessed data for NAs (should no longer have NAs)
+```{r}
+for (DATA in newMeso){
+  #Print NA Values
+  na.DATA <- list()
+  #loops through every column in Mesonet data structure
+  for(i in 1:ncol(DATA)){
+    na.DATA <- c( na.DATA, list(which( is.na(DATA[,i]) ) ) )
+    DATA[na.DATA[[i]],i]
+  }
+  for(i in 1:ncol(DATA)){
+    print(DATA[na.DATA[[i]],i])
+  }
+}
+```
+
+Combine all of the mesonet data into one table
+```{r}
+allMesonet <- rbind(newMeso[[1]],newMeso[[2]],newMeso[[3]],newMeso[[4]],newMeso[[5]],newMeso[[6]])
+allMesonet$X <- NULL
+```
+
+convert nominal data to numeric data
+```{r}
+#create separate variables
+allSTID <- allMesonet$STID
+allNumSTID <- as.numeric(allSTID)
+allMesonet$STID <- allNumSTID
+
+```
+
+Scale data.
+The scale function finds the mean and standard deviation of each column.
+It then takes each element in each column, subtracts it by the mean, then
+divides it by standard deviation.
+```{r}
+#remove year because scale function says it's NA
+allMesonet$Year <- NULL
+scaledMesonet <- scale(allMesonet[,-1])
+scaledMesonet <- cbind(scaledMesonet, allMesonet$STID)
+colnames(scaledMesonet)[15] <- "STID"
+#view the ranges of Zscores for each attribute
+for(i in 1:ncol(scaledMesonet)) {
+   print(range(scaledMesonet[,i]))
+}
+```
+
+
+Create sample sizes
+```{r}
+set.seed(1234)
+train <- array()
+kfolds <- 10
+i<-1
+delta <- 0
+randomIndices <- sample(nrow(scaledMesonet), nrow(scaledMesonet))
+dataLength <- length(randomIndices)
+for(i in 1:kfolds) {
+  kRange1 <- ceiling(dataLength - dataLength*(i/kfolds))
+  kRange2 <- dataLength - delta
+  train[i] <- list(randomIndices[kRange1:kRange2])
+  trainStr <- paste(c("meso.training.",i,".csv"), collapse = "")
+  validateStr <- paste(c("meso.validate.",i,".csv"), collapse = "")
+  write.csv(scaledMesonet[train[[i]],], file = trainStr)
+  write.csv(scaledMesonet[-train[[i]],], file = validateStr)
+  delta <- dataLength*(i/kfolds)
+}
+mesoSample <- scaledMesonet[train[[1]],]
+mesoValidate <- scaledMesonet[-train[[1]],]
+
+write.csv(scaledMesonet, file = "allMeso.csv")
+```
+
+

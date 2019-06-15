@@ -1,0 +1,32 @@
+---
+title: "Association Rules"
+output: html_document
+---
+
+
+```{r}
+
+timeAttr <- 2:6
+temp.train <- mesonet.train[,-timeAttr] #remove time attributes
+mesonet.train.factor <- lapply(temp.train, as.factor)
+#mesonet.train.factor <- lapply(mesonet.train, as.factor)
+mesonet.train.factor <- data.frame(mesonet.train.factor)
+
+temp.train <- mesonet.train[,-timeAttr] #remove time attributes
+mesonet.validate.factor <- lapply(temp.train, as.factor)
+#mesonet.validate.factor <- lapply(mesonet.validate, as.factor)
+mesonet.validate.factor <- data.frame(mesonet.validate.factor)
+
+library(arulesCBA)
+#Only provides rules. Cannot be used to predict?
+rules <- apriori(mesonet.train.factor)
+rules.sorted <- sort(rules, by=c("confidence", "support", "lift"))
+#Classification based on associations
+classifier <- CBA(mesonet.train.factor, "STID", supp = 0.003, conf = 0.3)
+print(classifier)
+rules(classifier)
+inspect(rules(classifier))
+classes <- predict(classifier, mesonet.train.factor)
+table(classes)
+```
+

@@ -1,0 +1,228 @@
+SalePrice,MachineID,ModelID,auctioneerID,YearMade,MachineHoursCurrentMeter,UsageBandCoded,SaleDateDay,SaleDateMonth,SaleDateYear,fiBaseModel,fiSecondaryDescCoded,fiModelSeriesCoded,fiProductClassDesc,state,Enclosure,EnclosureCoded,Enclosure w AC,ForksCoded,Ride_ControlCoded,Hydraulics,HydralicCoded,CouplerCoded
+60000,169387,75,1,2005,1842,1,27,8,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,OROPS,0,0,0,0,3 Valve,1,0
+80000,1765768,75,1,2004,1722,0,29,4,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,OROPS,0,0,0,1,2 Valve,0,0
+62500,508588,75,1,2003,7858,1,23,6,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,EROPS w AC,1,1,0,0,2 Valve,0,0
+63000,374504,75,1,2003,6328,2,16,11,2007,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Arizona,EROPS w AC,1,1,0,1,2 Valve,0,0
+72500,176700,75,1,2003,3005,1,28,8,2007,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,OROPS,0,0,0,1,2 Valve,0,0
+65000,306882,75,1,2003,6597,1,23,5,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Nevada,EROPS w AC,1,1,0,1,2 Valve,0,0
+80000,166047,75,1,2003,1640,0,28,8,2007,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,OROPS,0,0,0,1,2 Valve,0,0
+56000,481536,75,1,2003,9256,2,24,9,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,1,0,2 Valve,0,1
+62000,775321,75,1,2003,5754,2,19,2,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,OROPS,0,0,0,0,2 Valve,0,2
+70000,305108,75,1,2003,4997,1,23,6,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,EROPS w AC,1,1,0,1,2 Valve,0,0
+80000,175577,75,1,2004,1752,1,28,8,2007,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,OROPS,0,0,0,1,2 Valve,0,0
+80000,655073,75,1,2004,3143,1,16,12,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Washington,EROPS w AC,1,1,0,1,2 Valve,0,0
+70000,310724,75,1,2004,6482,2,23,5,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Nevada,EROPS w AC,1,1,0,1,2 Valve,0,0
+46000,986726,75,1,2004,4404,1,11,8,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Utah,EROPS w AC,1,1,0,1,2 Valve,0,0
+58000,290363,75,1,2004,6298,1,19,11,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Virginia,EROPS w AC,1,1,0,1,3 Valve,1,0
+62000,313602,75,1,2004,5393,1,6,2,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Nevada,EROPS w AC,1,1,0,1,2 Valve,0,2
+65000,362323,75,1,2005,7303,2,21,8,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Arizona,EROPS w AC,1,1,0,1,2 Valve,0,2
+90000,305296,75,1,2005,3272,1,13,3,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Nevada,EROPS w AC,1,1,0,1,2 Valve,0,0
+70000,775035,75,1,2005,1998,0,25,5,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,EROPS w AC,1,1,1,0,2 Valve,0,1
+60000,182656,75,1,2005,1418,0,27,8,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,OROPS,0,0,0,0,3 Valve,1,0
+60000,492771,75,1,2005,5849,1,25,2,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,1,0,2 Valve,0,1
+81000,175646,75,1,2005,2153,1,28,8,2007,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,OROPS,0,0,0,1,2 Valve,0,0
+80000,311633,75,1,2006,1670,0,3,4,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Nevada,EROPS w AC,1,1,1,1,2 Valve,0,1
+67500,511532,75,1,2006,1860,0,2,3,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,OROPS,0,0,1,1,2 Valve,0,1
+82000,206316,75,1,2006,3168,1,16,3,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Colorado,EROPS w AC,1,1,1,1,3 Valve,1,1
+82500,786459,75,1,2007,1925,1,25,5,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,OROPS,0,0,0,0,2 Valve,0,2
+95000,610980,75,1,2007,1916,2,27,3,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,OROPS,0,0,1,0,2 Valve,0,1
+85000,384525,75,1,2007,1365,1,20,11,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Arizona,EROPS w AC,1,1,0,1,2 Valve,0,2
+94000,1783709,75,1,2006,4899,1,15,2,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,EROPS w AC,1,1,1,0,2 Valve,0,0
+72500,313437,75,1,2004,5424,1,13,3,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Nevada,EROPS w AC,1,1,0,1,2 Valve,0,2
+87500,459375,75,1,2004,4831,1,5,3,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,1,0,2 Valve,0,2
+60000,308277,75,1,2004,4914,1,6,2,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Nevada,EROPS w AC,1,1,0,1,2 Valve,0,2
+60000,313762,75,1,2004,4535,1,6,2,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Nevada,EROPS w AC,1,1,0,1,2 Valve,0,2
+90000,181247,75,1,2005,2034,1,29,4,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,EROPS w AC,1,1,0,0,2 Valve,0,0
+67500,173849,75,1,2005,1640,0,29,4,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,OROPS,0,0,0,0,2 Valve,0,0
+83000,797727,75,1,2005,2988,1,15,2,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,OROPS,0,0,1,0,2 Valve,0,1
+60000,467005,75,1,2005,5849,1,25,2,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,0,0,2 Valve,0,0
+67500,309043,75,1,2005,4018,1,3,3,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,EROPS w AC,1,1,0,1,3 Valve,1,1
+80000,209457,75,1,2005,5730,2,4,6,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Colorado,EROPS w AC,1,1,0,1,2 Valve,0,0
+62000,778153,75,1,2005,2944,1,25,5,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,OROPS,0,0,1,0,2 Valve,0,1
+81000,174942,75,1,2005,2530,1,28,8,2007,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,OROPS,0,0,0,1,2 Valve,0,0
+37500,174942,75,1,2005,3072,1,28,7,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,OROPS,0,0,0,1,2 Valve,0,0
+60000,611576,75,1,2005,2857,1,25,3,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,0,0,2 Valve,0,0
+80000,198857,75,1,2005,3968,1,4,6,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Colorado,EROPS w AC,1,1,0,1,2 Valve,0,0
+54000,727819,75,1,2005,7559,2,25,3,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,0,1,3 Valve,1,0
+94000,782666,75,1,2006,1995,0,15,2,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,OROPS,0,0,0,0,2 Valve,0,1
+60000,311712,75,1,2006,4544,2,7,8,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Nevada,EROPS w AC,1,1,0,1,2 Valve,0,0
+90000,488442,75,1,2006,4652,2,4,3,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,0,0,2 Valve,0,0
+65000,505470,75,1,2006,7283,2,23,9,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,1,0,2 Valve,0,1
+85000,990817,75,1,2006,1424,0,6,11,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Nevada,EROPS w AC,1,1,0,1,2 Valve,0,0
+77500,314984,75,1,2006,2639,1,6,11,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Nevada,EROPS w AC,1,1,0,1,2 Valve,0,0
+60000,503002,75,1,2006,7991,2,25,2,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,1,0,2 Valve,0,1
+80000,462793,75,1,2006,4251,2,23,9,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,1,0,2 Valve,0,1
+77500,457562,75,1,2006,3457,1,6,5,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,0,0,2 Valve,0,0
+87500,309351,75,1,2006,1426,0,3,4,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Nevada,EROPS w AC,1,1,0,1,3 Valve,1,0
+70000,381810,75,1,2006,4074,1,15,4,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Arizona,EROPS w AC,1,1,0,1,2 Valve,0,0
+102500,771590,75,1,2006,3424,1,15,2,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,EROPS w AC,1,1,0,0,2 Valve,0,1
+95000,606747,75,1,2007,1797,2,27,3,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,OROPS,0,0,1,0,2 Valve,0,1
+45000,288063,75,1,2004,12733,2,30,3,2011,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,North Carolina,EROPS w AC,1,1,1,0,3 Valve,1,0
+70000,788669,75,1,2004,10112,2,15,2,2011,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,OROPS,0,0,0,0,2 Valve,0,0
+48000,460243,75,1,2003,32767,2,9,3,2011,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,0,0,2 Valve,0,0
+84000,765601,75,1,2004,4894,1,15,2,2011,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,OROPS,0,0,0,0,2 Valve,0,0
+67500,612734,75,1,2006,6945,2,3,11,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,1,0,2 Valve,0,1
+62500,466388,75,1,2004,5183,1,13,4,2011,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,1,0,2 Valve,0,0
+70000,960690,75,1,2005,5452,1,27,8,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Idaho,EROPS w AC,1,1,0,1,2 Valve,0,1
+84000,524577,75,1,2005,4930,1,15,2,2011,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,OROPS,0,0,0,0,2 Valve,0,0
+87000,625332,75,1,2006,5446,1,16,6,2011,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Washington,EROPS w AC,1,1,1,1,2 Valve,0,1
+105000,682079,75,1,2006,3178,1,12,4,2011,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Ohio,EROPS,1,0,0,1,2 Valve,0,2
+62500,482027,75,1,2005,6365,2,6,5,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,1,0,2 Valve,0,1
+95000,2271762,75,1,2007,162,0,15,12,2011,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,EROPS w AC,1,1,1,1,2 Valve,0,0
+70000,483998,75,1,2005,6061,2,9,7,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,1,0,2 Valve,0,2
+70000,482721,75,1,2005,4106,1,15,7,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,0,0,2 Valve,0,0
+75000,467108,75,1,2005,6293,2,9,7,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,1,0,2 Valve,0,1
+77500,468180,75,1,2005,4929,1,9,7,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,1,0,2 Valve,0,1
+77500,472520,75,1,2006,6089,2,9,7,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,1,0,2 Valve,0,1
+77500,489133,75,1,2006,4339,2,9,7,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,1,0,2 Valve,0,1
+77500,504137,75,1,2006,4718,2,9,7,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,1,0,2 Valve,0,1
+82500,465197,75,1,2006,3880,1,9,7,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,1,0,2 Valve,0,1
+85000,465526,75,1,2005,2482,1,23,9,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,1,0,2 Valve,0,1
+76000,2294934,75,1,2005,5263,1,2,6,2011,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Tennessee,EROPS w AC,1,1,1,1,2 Valve,0,0
+79000,2294934,75,1,2006,2966,1,25,10,2011,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,EROPS w AC,1,1,1,1,2 Valve,0,0
+60000,548554,75,2,2004,1458,0,31,1,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,EROPS w AC,1,1,0,0,2 Valve,0,0
+95000,516134,75,2,2004,2076,1,20,9,2007,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,EROPS w AC,1,1,0,1,2 Valve,0,0
+84000,509942,75,2,2004,1721,1,20,9,2007,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,EROPS w AC,1,1,0,1,2 Valve,0,0
+95000,518962,75,2,2004,1117,0,20,9,2007,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,EROPS w AC,1,1,0,1,2 Valve,0,0
+85000,151072,75,2,2005,3436,2,5,6,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Georgia,EROPS w AC,1,1,1,1,2 Valve,0,1
+101000,511203,75,2,2005,1000,0,20,9,2007,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,EROPS w AC,1,1,0,1,2 Valve,0,0
+82500,798351,75,2,2006,2195,1,31,1,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,OROPS,0,0,1,0,2 Valve,0,1
+89500,812688,75,2,2006,2255,0,29,1,2011,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,EROPS w AC,1,1,0,1,2 Valve,0,0
+95000,798958,75,3,2004,1609,0,25,1,2007,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,EROPS w AC,1,1,0,0,2 Valve,0,1
+69000,1003932,75,3,2004,3875,0,12,5,2011,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Arkansas,EROPS w AC,1,1,0,0,2 Valve,0,0
+65000,999405,75,3,2006,2656,1,20,8,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,EROPS w AC,1,1,0,0,2 Valve,0,0
+96000,758291,75,3,2007,2255,1,25,2,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,EROPS w AC,1,1,0,0,2 Valve,0,1
+72000,1063545,75,3,2006,1945,1,20,8,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,EROPS w AC,1,1,0,1,3 Valve,1,0
+56000,1056671,75,3,2003,2695,0,6,8,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Illinois,EROPS,1,0,1,1,3 Valve,1,1
+88000,454475,75,3,2004,6755,2,25,1,2007,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,EROPS w AC,1,1,0,0,3 Valve,1,0
+90000,363129,75,3,2007,1640,0,28,1,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Arizona,EROPS w AC,1,1,0,0,2 Valve,0,0
+86000,732662,75,3,2004,6661,2,20,4,2006,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Mississippi,EROPS w AC,1,1,1,1,3 Valve,1,0
+96000,667291,75,3,2006,2911,1,16,6,2011,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Arizona,EROPS w AC,1,1,1,1,3 Valve,1,1
+78000,1003676,75,3,2006,1343,0,20,8,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,EROPS w AC,1,1,0,0,2 Valve,0,0
+63000,1002062,75,3,2005,8023,1,7,7,2011,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Colorado,EROPS w AC,1,1,0,1,2 Valve,0,0
+103000,237418,75,3,2004,1310,1,14,12,2006,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Illinois,EROPS w AC,1,1,0,0,2 Valve,0,0
+78000,731841,75,3,2003,6349,2,20,4,2006,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Mississippi,EROPS w AC,1,1,1,1,3 Valve,1,0
+58000,1057773,75,3,2005,3162,1,20,8,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,EROPS w AC,1,1,0,0,2 Valve,0,0
+104000,798351,75,3,2006,1146,1,31,1,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,OROPS,0,0,1,0,2 Valve,0,1
+101000,521131,75,3,2006,1572,1,15,5,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,EROPS w AC,1,1,0,0,2 Valve,0,1
+62000,568675,75,3,2004,7754,2,1,5,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Indiana,EROPS w AC,1,1,0,0,2 Valve,0,0
+54000,1021640,75,3,2003,8272,2,30,10,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Arizona,EROPS w AC,1,1,0,1,2 Valve,0,2
+89000,779181,75,3,2006,2650,1,13,11,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,EROPS w AC,1,1,1,0,2 Valve,0,1
+73000,588181,75,3,2005,2681,1,25,11,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,0,0,2 Valve,0,0
+71000,316123,75,3,2005,2354,1,18,12,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Nevada,EROPS w AC,1,1,0,1,2 Valve,0,0
+64000,311287,75,3,2005,2000,1,18,12,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Nevada,EROPS w AC,1,1,0,1,3 Valve,1,0
+84000,685925,75,3,2005,2767,1,29,1,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Idaho,EROPS w AC,1,1,0,1,2 Valve,0,0
+52000,770323,75,3,2005,2921,1,29,1,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,OROPS,0,0,0,0,2 Valve,0,0
+81000,793200,75,3,2006,2893,1,29,1,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,EROPS w AC,1,1,0,0,2 Valve,0,0
+52000,763186,75,3,2005,5991,2,11,6,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,EROPS w AC,1,1,0,0,2 Valve,0,1
+65000,785521,75,3,2006,625,0,11,6,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,OROPS,0,0,0,0,2 Valve,0,1
+86000,318796,75,3,2006,684,0,11,6,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,West Virginia,EROPS w AC,1,1,0,0,2 Valve,0,0
+102000,787768,75,3,2007,1468,1,27,10,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,EROPS w AC,1,1,1,0,2 Valve,0,1
+68000,188605,75,3,2005,3415,1,12,11,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Colorado,EROPS w AC,1,1,0,1,2 Valve,0,0
+59000,1053307,75,3,2003,7270,1,29,4,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Colorado,EROPS w AC,1,1,0,1,2 Valve,0,0
+93000,179675,75,3,2006,2959,1,23,9,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,EROPS w AC,1,1,1,1,2 Valve,0,2
+63000,736543,75,3,2005,6715,1,23,6,2011,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Mississippi,EROPS w AC,1,1,1,0,3 Valve,1,0
+78000,306164,75,3,2006,4998,1,4,8,2011,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Idaho,EROPS w AC,1,1,1,1,2 Valve,0,0
+81000,1029007,75,3,2007,4361,1,17,11,2011,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,New York,EROPS w AC,1,1,0,0,2 Valve,0,0
+56000,777904,75,4,2005,4400,1,7,2,2011,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,OROPS,0,0,0,0,2 Valve,0,1
+62000,524229,75,7,2004,5000,2,5,9,2007,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Alabama,EROPS w AC,1,1,0,0,2 Valve,0,2
+91000,34798,75,7,2005,649,0,4,6,2008,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Alabama,EROPS w AC,1,1,0,0,2 Valve,0,0
+65000,682750,75,16,2003,6667,1,6,5,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Ohio,EROPS w AC,1,1,1,0,2 Valve,0,1
+87500,679364,75,16,2005,5375,1,6,5,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Ohio,EROPS w AC,1,1,0,1,2 Valve,0,0
+46000,607712,75,99,2003,3603,1,2,6,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,1,0,2 Valve,0,0
+46000,50139,75,99,2005,4487,1,2,6,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,0,1,2 Valve,0,0
+70000,592250,75,99,2006,1628,0,2,6,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,0,0,2 Valve,0,0
+73000,159921,75,99,2007,3879,2,2,12,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Alabama,EROPS w AC,1,1,0,0,3 Valve,1,1
+67500,593592,75,99,2006,1670,0,2,6,2009,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,0,0,2 Valve,0,0
+43000,200089,75,99,2003,10776,2,10,11,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Colorado,EROPS w AC,1,1,1,1,2 Valve,0,2
+45000,288063,75,99,2004,12733,2,16,4,2011,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Iowa,EROPS w AC,1,1,1,0,3 Valve,1,0
+60000,961187,75,99,2006,9491,2,10,11,2010,938,1,0,Wheel Loader - 150.0 to 175.0 Horsepower,Colorado,EROPS w AC,1,1,0,1,3 Valve,1,1
+60000,1461883,77,1,1996,1780,0,26,2,2008,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,EROPS w AC,1,1,0,1,2 Valve,0,0
+57500,1497448,77,1,1993,32767,2,27,4,2011,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Nebraska,EROPS w AC,1,1,0,1,2 Valve,0,0
+36000,1170867,77,1,1993,12944,1,15,2,2011,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,OROPS,0,0,0,0,2 Valve,0,2
+30000,1369126,77,1,1994,8065,0,15,2,2011,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,OROPS,0,0,0,0,2 Valve,0,0
+47500,200755,77,1,1995,12368,1,15,3,2011,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Colorado,EROPS w AC,1,1,0,1,2 Valve,0,0
+55000,205936,77,1,1996,7713,0,15,3,2011,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Colorado,EROPS w AC,1,1,0,1,2 Valve,0,0
+45000,1338357,77,1,1998,10654,1,12,11,2010,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Montana,EROPS w AC,1,1,0,1,2 Valve,0,0
+49000,795958,77,1,1997,1481,0,15,2,2011,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,EROPS,1,0,0,0,2 Valve,0,2
+40000,2290398,77,1,1993,16926,1,25,5,2010,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,OROPS,0,0,1,0,2 Valve,0,0
+32500,1491434,77,1,1993,90,0,16,9,2009,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Washington,OROPS,0,0,1,0,3 Valve,1,1
+32000,1459110,77,1,1993,10830,0,2,3,2010,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,OROPS,0,0,0,0,3 Valve,1,0
+20000,2273222,77,1,1994,13561,1,27,6,2011,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Arizona,EROPS w AC,1,1,0,0,2 Valve,0,0
+50000,2297662,77,1,1994,8800,0,1,12,2011,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,1,1,2 Valve,0,0
+52000,2297662,77,1,1995,4928,0,12,12,2011,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Maryland,EROPS w AC,1,1,1,1,2 Valve,0,0
+99000,855784,77,2,1994,1685,0,2,8,1997,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Pennsylvania,EROPS,1,0,0,0,3 Valve,1,0
+102500,1289619,77,2,1994,2089,1,20,3,1997,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,New Jersey,EROPS w AC,1,1,0,0,3 Valve,1,0
+57000,117657,77,3,1996,4640,0,26,3,2004,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,North Carolina,EROPS w AC,1,1,0,0,2 Valve,0,0
+47000,243271,77,3,1996,8959,1,6,8,2009,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Iowa,EROPS w AC,1,1,0,0,2 Valve,0,0
+43000,1049020,77,3,1992,16616,1,4,5,2006,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Virginia,EROPS w AC,1,1,0,0,2 Valve,0,0
+54000,24533,77,3,1994,9252,1,14,12,2006,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,EROPS w AC,1,1,0,0,2 Valve,0,0
+82000,593439,77,3,1997,9630,1,12,1,2006,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Oklahoma,EROPS w AC,1,1,1,0,2 Valve,0,1
+54000,45508,77,3,1996,4387,0,11,3,2004,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Louisiana,EROPS w AC,1,1,0,0,2 Valve,0,0
+75000,1006038,77,3,1997,6698,1,23,2,2006,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Utah,EROPS w AC,1,1,0,0,2 Valve,0,2
+52000,238464,77,3,1994,9670,1,6,9,2007,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,South Dakota,EROPS w AC,1,1,0,0,2 Valve,0,0
+45000,8153,77,3,1997,9854,1,28,1,2010,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Alabama,EROPS w AC,1,1,0,0,2 Valve,0,0
+32000,767638,77,3,1993,11357,1,6,5,2004,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,OROPS,0,0,0,0,2 Valve,0,0
+51000,28936,77,3,1994,12847,1,18,10,2007,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,EROPS w AC,1,1,0,1,2 Valve,0,0
+35000,1003220,77,3,1997,17462,2,6,8,2009,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,OROPS,0,0,1,0,2 Valve,0,0
+63000,437405,77,3,1997,8247,1,24,3,2005,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,New York,EROPS,1,0,0,0,3 Valve,1,0
+58000,1035110,77,3,1994,6557,0,19,5,2005,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,New Jersey,EROPS w AC,1,1,0,0,2 Valve,0,0
+49000,1062430,77,3,1994,2589,0,11,12,2008,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Idaho,EROPS w AC,1,1,0,0,2 Valve,0,0
+38000,374500,77,3,1998,11060,1,29,7,2010,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Arizona,EROPS w AC,1,1,0,0,2 Valve,0,0
+93000,1292570,77,4,1994,5000,1,5,2,1998,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,EROPS w AC,1,1,0,0,2 Valve,0,0
+59000,1535096,77,4,1994,3000,0,9,2,2000,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,OROPS,0,0,0,0,3 Valve,1,0
+80000,1258387,77,4,1995,4100,1,9,2,2000,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,EROPS w AC,1,1,0,0,2 Valve,0,0
+90000,1168754,77,4,1995,2400,1,5,2,1998,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Florida,OROPS,0,0,0,0,2 Valve,0,0
+62500,842284,77,4,1995,9214,1,24,4,2008,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,New Hampshire,EROPS,1,0,0,0,2 Valve,0,0
+70000,1330701,77,5,1993,4083,0,21,1,2000,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Connecticut,EROPS w AC,1,1,0,1,2 Valve,0,0
+95000,1553092,77,6,1994,2115,0,7,4,1998,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Kentucky,EROPS w AC,1,1,0,1,2 Valve,0,0
+47500,1518872,77,6,1995,1184,0,19,5,2007,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,California,EROPS w AC,1,1,0,0,2 Valve,0,0
+57500,1151613,77,8,1996,6457,0,24,6,2010,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Alabama,EROPS w AC,1,1,0,0,2 Valve,0,0
+100000,487028,77,10,1993,2600,0,28,8,1997,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Louisiana,EROPS w AC,1,1,0,0,2 Valve,0,0
+90000,1140987,77,21,1993,2862,1,9,5,1997,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Maine,EROPS,1,0,0,0,2 Valve,0,0
+37500,1019732,77,21,1997,13312,1,20,5,2011,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Maine,EROPS,1,0,0,0,2 Valve,0,0
+42500,1103387,77,99,1993,3657,0,3,2,2011,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Texas,EROPS w AC,1,1,0,0,2 Valve,0,0
+45000,1339299,77,99,1994,13312,1,18,11,2009,950,0,0,Wheel Loader - 150.0 to 175.0 Horsepower,Minnesota,EROPS w AC,1,1,1,1,2 Valve,0,0
+97500,199611,82,1,2004,5737,1,26,6,2008,962,1,0,Wheel Loader - 200.0 to 225.0 Horsepower,Colorado,EROPS w AC,1,1,0,1,2 Valve,0,0
+99000,985937,82,1,2005,4285,1,23,5,2008,962,1,0,Wheel Loader - 200.0 to 225.0 Horsepower,Nevada,EROPS w AC,1,1,0,1,2 Valve,0,0
+64000,657313,82,1,2003,7047,1,17,6,2009,962,1,0,Wheel Loader - 200.0 to 225.0 Horsepower,Washington,EROPS w AC,1,1,1,1,2 Valve,0,1
+100000,2305612,82,1,2006,6910,1,28,6,2011,962,1,0,Wheel Loader - 200.0 to 225.0 Horsepower,Utah,EROPS w AC,1,1,0,1,2 Valve,0,0
+73000,2305612,82,1,2005,9705,1,16,8,2011,962,1,0,Wheel Loader - 200.0 to 225.0 Horsepower,Florida,EROPS w AC,1,1,0,1,2 Valve,0,0
+76000,53322,82,3,2004,6735,1,25,3,2010,962,1,0,Wheel Loader - 200.0 to 225.0 Horsepower,Louisiana,EROPS w AC,1,1,0,0,2 Valve,0,0
+91000,170543,82,3,2005,7240,1,9,12,2010,962,1,0,Wheel Loader - 200.0 to 225.0 Horsepower,California,EROPS w AC,1,1,0,1,2 Valve,0,0
+80000,1111602,82,5,2004,5402,1,11,6,2009,962,1,0,Wheel Loader - 200.0 to 225.0 Horsepower,North Carolina,EROPS w AC,1,1,1,1,2 Valve,0,1
+97500,1222239,82,5,2004,4419,1,11,6,2009,962,1,0,Wheel Loader - 200.0 to 225.0 Horsepower,North Carolina,EROPS w AC,1,1,1,1,2 Valve,0,1
+89000,363495,85,1,1998,10173,1,20,4,2010,966,0,0,Wheel Loader - 200.0 to 225.0 Horsepower,New Mexico,EROPS w AC,1,1,0,1,2 Valve,0,0
+90000,702941,85,1,1996,10134,0,14,12,2010,966,0,0,Wheel Loader - 200.0 to 225.0 Horsepower,California,EROPS w AC,1,1,0,0,3 Valve,1,0
+62000,2267560,85,1,1997,21264,1,3,10,2011,966,0,0,Wheel Loader - 200.0 to 225.0 Horsepower,Texas,EROPS w AC,1,1,1,1,2 Valve,0,0
+55000,2296940,85,1,1992,6447,0,6,12,2011,966,0,0,Wheel Loader - 200.0 to 225.0 Horsepower,Georgia,EROPS w AC,1,1,0,1,2 Valve,0,0
+70000,608198,85,1,1994,11380,0,24,3,2010,966,0,0,Wheel Loader - 200.0 to 225.0 Horsepower,Texas,EROPS w AC,1,1,0,0,2 Valve,0,0
+85000,513452,85,3,1996,7952,1,29,1,2004,966,0,0,Wheel Loader - 200.0 to 225.0 Horsepower,California,EROPS w AC,1,1,0,0,2 Valve,0,0
+99000,1065520,85,3,1996,7037,1,19,5,2005,966,0,0,Wheel Loader - 200.0 to 225.0 Horsepower,Virginia,EROPS w AC,1,1,0,0,2 Valve,0,0
+88000,183760,85,3,1997,8500,1,10,1,2008,966,0,0,Wheel Loader - 200.0 to 225.0 Horsepower,California,EROPS w AC,1,1,0,1,2 Valve,0,0
+88000,1026420,85,3,1996,3712,0,26,6,2008,966,0,0,Wheel Loader - 200.0 to 225.0 Horsepower,Florida,EROPS w AC,1,1,0,1,2 Valve,0,0
+85000,855808,85,3,1994,7527,0,16,10,2008,966,0,0,Wheel Loader - 200.0 to 225.0 Horsepower,Nevada,EROPS w AC,1,1,1,0,2 Valve,0,1
+64250,658847,85,3,1996,6232,0,7,1,2010,966,0,0,Wheel Loader - 200.0 to 225.0 Horsepower,Oregon,EROPS,1,0,0,1,2 Valve,0,0
+77000,260219,85,3,1994,9151,0,18,3,2010,966,0,0,Wheel Loader - 200.0 to 225.0 Horsepower,South Carolina,EROPS w AC,1,1,0,0,2 Valve,0,2
+63000,1038842,85,3,1997,721,0,29,7,2010,966,0,0,Wheel Loader - 200.0 to 225.0 Horsepower,North Carolina,EROPS w AC,1,1,1,1,2 Valve,0,0
+79000,342654,85,3,1998,9896,1,7,10,2010,966,0,0,Wheel Loader - 200.0 to 225.0 Horsepower,California,EROPS w AC,1,1,1,0,2 Valve,0,1
+84000,372594,85,3,1998,12927,1,21,7,2011,966,0,0,Wheel Loader - 200.0 to 225.0 Horsepower,Arizona,EROPS w AC,1,1,0,1,2 Valve,0,0
+82000,1207271,85,4,1994,5200,1,5,2,1998,966,0,0,Wheel Loader - 200.0 to 225.0 Horsepower,Florida,EROPS,1,0,0,0,2 Valve,0,0
+97000,815179,85,4,1995,2000,0,9,2,2000,966,0,0,Wheel Loader - 200.0 to 225.0 Horsepower,Florida,EROPS w AC,1,1,0,0,2 Valve,0,0
+68000,1098860,85,5,1995,32767,2,18,5,2007,966,0,0,Wheel Loader - 200.0 to 225.0 Horsepower,Ohio,EROPS,1,0,0,0,2 Valve,0,0
+77000,1141642,85,16,1997,4236,0,3,12,2008,966,0,0,Wheel Loader - 200.0 to 225.0 Horsepower,Ohio,EROPS,1,0,0,0,2 Valve,0,0
+49000,1469471,90,1,1995,32767,2,24,2,2011,980,0,0,Wheel Loader - 275.0 to 350.0 Horsepower,Arizona,EROPS w AC,1,1,0,0,2 Valve,0,0
+75000,362708,90,3,1995,15220,1,12,3,2008,980,0,0,Wheel Loader - 275.0 to 350.0 Horsepower,Arizona,EROPS w AC,1,1,0,0,2 Valve,0,0
+51000,135134,90,3,1995,24,0,5,2,2009,980,0,0,Wheel Loader - 275.0 to 350.0 Horsepower,South Carolina,EROPS w AC,1,1,0,0,2 Valve,0,0
+73000,1057269,90,3,1995,305,0,14,5,2009,980,0,0,Wheel Loader - 275.0 to 350.0 Horsepower,Florida,EROPS w AC,1,1,0,0,2 Valve,0,0
+38000,1347281,109,1,1988,1510,0,30,3,2011,80,2,0,Wheel Loader - 175.0 to 200.0 Horsepower,North Carolina,EROPS,1,0,0,0,2 Valve,0,0
+37500,1362854,109,1,2000,21071,2,27,7,2011,80,2,0,Wheel Loader - 175.0 to 200.0 Horsepower,Texas,EROPS w AC,1,1,0,0,2 Valve,0,0
+38000,1357740,109,1,1988,1510,0,30,3,2011,80,2,0,Wheel Loader - 175.0 to 200.0 Horsepower,North Carolina,EROPS,1,0,0,0,2 Valve,0,0
+41000,1744370,111,1,1994,6356,0,20,4,2010,90,2,1,Wheel Loader - 250.0 to 275.0 Horsepower,New Mexico,EROPS,1,0,0,0,2 Valve,0,0
+27000,2280092,111,1,1994,5088,0,27,5,2010,90,2,1,Wheel Loader - 250.0 to 275.0 Horsepower,Washington,EROPS,1,0,0,0,2 Valve,0,0
+25000,1011875,111,3,1995,3214,0,20,8,2009,90,2,1,Wheel Loader - 250.0 to 275.0 Horsepower,Ohio,EROPS,1,0,0,0,2 Valve,0,0
+26000,1036569,111,3,1997,9257,1,25,2,2010,90,2,1,Wheel Loader - 250.0 to 275.0 Horsepower,Arkansas,EROPS,1,0,1,0,2 Valve,0,0
+24000,1200347,111,5,1994,9503,1,15,10,2010,90,2,1,Wheel Loader - 250.0 to 275.0 Horsepower,Ohio,EROPS w AC,1,1,0,0,2 Valve,0,0
+15000,1481234,112,1,1986,4487,0,6,5,2010,95,2,0,Wheel Loader - 275.0 to 350.0 Horsepower,Texas,EROPS w AC,1,1,0,0,2 Valve,0,0
+45500,1027317,112,3,2001,16126,2,11,11,2010,95,2,0,Wheel Loader - 275.0 to 350.0 Horsepower,New York,EROPS w AC,1,1,0,0,2 Valve,0,0
+27000,1038601,112,3,1993,6679,0,6,12,2007,95,2,0,Wheel Loader - 275.0 to 350.0 Horsepower,Texas,EROPS w AC,1,1,0,0,2 Valve,0,0

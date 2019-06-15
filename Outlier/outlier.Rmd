@@ -1,0 +1,304 @@
+---
+title: "Outlier"
+output: html_document
+---
+
+First, use initialExploration.Rmd to prepare data
+-imputes missing values with column mean
+-remember allMesonet is the variable to use
+Second, normalize data
+```{r}
+normFARM <- scale(class.FARM[,c(-1,-2,-3,-4,-5,-6,-7)])
+normGRHM <- scale(class.GRHM[,c(-1,-2,-3,-4,-5,-6,-7)])
+normHTFD <- scale(class.HTFD[,c(-1,-2,-3,-4,-5,-6,-7)])
+normMRRY <- scale(class.MRRY[,c(-1,-2,-3,-4,-5,-6,-7)])
+normPGHL <- scale(class.PGHL[,c(-1,-2,-3,-4,-5,-6,-7)])
+normRSVL <- scale(class.RSVL[,c(-1,-2,-3,-4,-5,-6,-7)])
+normAllMeso <- scale(allMesonet[,c(-1,-2,-3,-4,-5,-6,-7)])
+
+normFARM <- scale(class.FARM[,c(-1,-2,-3,-4,-5,-6,-7)])
+normGRHM <- scale(class.GRHM[,c(-1,-2,-3,-4,-5,-6,-7)])
+normHTFD <- scale(class.HTFD[,c(-1,-2,-3,-4,-5,-6,-7)])
+normMRRY <- scale(class.MRRY[,c(-1,-2,-3,-4,-5,-6,-7)])
+normPGHL <- scale(class.PGHL[,c(-1,-2,-3,-4,-5,-6,-7)])
+normRSVL <- scale(class.RSVL[,c(-1,-2,-3,-4,-5,-6,-7)])
+normAllMeso <- scale(allMesonet[,c(-1,-2,-3,-4,-5,-6,-7)])
+```
+
+PCA
+```{r}
+pcaFARM <- prcomp(normFARM, 
+                  center = TRUE,
+                  scale. = TRUE)
+pcaGRHM <- prcomp(normGRHM, 
+                  center = TRUE,
+                  scale. = TRUE)
+pcaHTFD <- prcomp(normHTFD, 
+                  center = TRUE,
+                  scale. = TRUE)
+pcaMRRY <- prcomp(normMRRY, 
+                  center = TRUE,
+                  scale. = TRUE)
+pcaPGHL <- prcomp(normPGHL, 
+                  center = TRUE,
+                  scale. = TRUE)
+pcaRSVL <- prcomp(normRSVL, 
+                  center = TRUE,
+                  scale. = TRUE)
+pcaAllMeso <- prcomp(normAllMeso, 
+                  center = TRUE,
+                  scale. = TRUE)
+```
+Print those results
+```{r}
+print(pcaFARM)
+print(pcaGRHM)
+print(pcaHTFD)
+print(pcaMRRY)
+print(pcaPGHL)
+print(pcaRSVL)
+print(pcaAllMeso)
+
+plot(pcaFARM, type = "l")
+plot(pcaGRHM, type = "l")
+plot(pcaHTFD, type = "l")
+plot(pcaMRRY, type = "l")
+plot(pcaPGHL, type = "l")
+plot(pcaRSVL, type = "l")
+plot(pcaAllMeso, type = "l")
+```
+
+Now do PCA?
+```{r}
+library(caret)
+trans <- preProcess(normAllMeso, 
+                    method=c("BoxCox", "center",
+                             "scale", "pca"))
+PC = predict(trans, normAllMeso)
+head(PC)
+trans <- preProcess(normAllMeso, 
+                    method=c("BoxCox", "center",
+                             "scale", "pca"))
+PC = predict(trans, normAllMeso)
+head(PC)
+trans <- preProcess(normAllMeso, 
+                    method=c("BoxCox", "center",
+                             "scale", "pca"))
+PC = predict(trans, normAllMeso)
+head(PC)
+trans <- preProcess(normAllMeso, 
+                    method=c("BoxCox", "center",
+                             "scale", "pca"))
+PC = predict(trans, normAllMeso)
+head(PC)
+trans <- preProcess(normAllMeso, 
+                    method=c("BoxCox", "center",
+                             "scale", "pca"))
+PC = predict(trans, normAllMeso)
+head(PC)
+trans <- preProcess(normAllMeso, 
+                    method=c("BoxCox", "center",
+                             "scale", "pca"))
+PC = predict(trans, normAllMeso)
+head(PC)
+trans <- preProcess(normAllMeso, 
+                    method=c("BoxCox", "center",
+                             "scale", "pca"))
+PC = predict(trans, normAllMeso)
+head(PC)
+```
+
+create random sample sizes of locations
+```{r}
+splace <- sample(nrow(normFARM), 0.5*nrow(normFARM))
+sampleFARM <- normFARM[splace,]
+splace <- sample(nrow(normGRHM), 0.5*nrow(normGRHM))
+sampleGRHM <- normGRHM[splace,]
+splace <- sample(nrow(normHTFD), 0.5*nrow(normHTFD))
+sampleHTFD <- normHTFD[splace,]
+splace <- sample(nrow(normMRRY), 0.5*nrow(normMRRY))
+sampleMRRY <- normMRRY[splace,]
+splace <- sample(nrow(normPGHL), 0.5*nrow(normPGHL))
+samplePGHL <- normPGHL[splace,]
+splace <- sample(nrow(normRSVL), 0.5*nrow(normRSVL))
+sampleRSVL <- normRSVL[splace,]
+splace <- sample(nrow(normAllMeso), nrow(normAllMeso))
+sampleMeso <- normAllMeso[splace,]
+```
+
+Third, use outlier libraries to find outliers per location
+```{r}
+library(DMwR2)
+#normFARM
+#normGRHM
+#normHTFD
+#normMRRY
+#normPGHL
+#normRSVL
+#normAllMeso
+
+ptm <- proc.time()
+outlier.scores.farm <- lofactor(normFARM, k=5)
+outlier.scores.farm.o <- outlier.scores.farm[which(is.nan(outlier.scores.farm) == 0)]
+outlier.scores.grhm <- lofactor(normGRHM, k=5)
+outlier.scores.grhm.o <- outlier.scores.grhm[which(is.nan(outlier.scores.grhm) == 0)]
+outlier.scores.htfd <- lofactor(normHTFD, k=5)
+outlier.scores.htfd.o <- outlier.scores.htfd[which(is.nan(outlier.scores.htfd) == 0)]
+outlier.scores.mrry <- lofactor(normMRRY, k=5)
+outlier.scores.mrry.o <- outlier.scores.mrry[which(is.nan(outlier.scores.mrry) == 0)]
+outlier.scores.pghl <- lofactor(normPGHL, k=5)
+outlier.scores.pghl.o <- outlier.scores.pghl[which(is.nan(outlier.scores.pghl) == 0)]
+outlier.scores.rsvl <- lofactor(normRSVL, k=5)
+outlier.scores.rsvl.o <- outlier.scores.rsvl[which(is.nan(outlier.scores.rsvl) == 0)]
+exclude <- which(is.nan(outlier.scores.rsvl.o) == 1)
+exclude <- c(exclude, which(is.infinite(outlier.scores.rsvl.o) == 1))
+outlier.scores.rsvl.o <- outlier.scores.rsvl.o[-exclude]
+proc.time() - ptm
+
+ptm <- proc.time()
+outlier.scores.meso3 <- lofactor(normAllMeso, k=3)
+proc.time() - ptm
+
+exclude <- which(is.nan(outlier.scores.meso) == 1)
+exclude <- c(exclude, which(is.infinite(outlier.scores.meso) == 1))
+outlier.scores.meso.clean <- outlier.scores.meso[-exclude]
+normAllMeso.clean <- normAllMeso[-exclude,]
+
+plot(density(outlier.scores.meso))
+plot(density(outlier.scores.meso.clean))
+plot(density(outlier.scores.meso.clean), main="Local Outlier Factor Density Plot")
+
+plot(density(outlier.scores.farm))
+plot(density(outlier.scores.grhm))
+plot(density(outlier.scores.htfd))
+plot(density(outlier.scores.mrry))
+plot(density(outlier.scores.pghl))
+plot(density(outlier.scores.rsvl))
+#who are outliers
+#print(outliers)
+```
+
+Combine normalized data points and outlier scores. Then filter out extraneous scores.
+```{r}
+outlier.scores.all <- c(outlier.scores.farm, outlier.scores.grhm, 
+                        outlier.scores.htfd, outlier.scores.mrry,
+                        outlier.scores.pghl, outlier.scores.rsvl)
+
+```
+
+Find mean and standard deviation
+```{r}
+lofMean <- mean(outlier.scores.farm)
+lofSD <- sd(outlier.scores.farm)
+lofThresholdfarm <- length(which(outlier.scores.farm > (lofMean + lofSD*3)))
+lofMean <- mean(outlier.scores.grhm)
+lofSD <- sd(outlier.scores.grhm)
+lofThresholdgrhm <- length(which(outlier.scores.grhm > (lofMean + lofSD*3)))
+lofMean <- mean(outlier.scores.htfd)
+lofSD <- sd(outlier.scores.htfd)
+lofThresholdhtfd <- length(which(outlier.scores.htfd > (lofMean + lofSD*3)))
+lofMean <- mean(outlier.scores.mrry)
+lofSD <- sd(outlier.scores.mrry)
+lofThresholdmrry <- length(which(outlier.scores.mrry > (lofMean + lofSD*3)))
+lofMean <- mean(outlier.scores.pghl)
+lofSD <- sd(outlier.scores.pghl)
+lofThresholdpghl <- length(which(outlier.scores.pghl > (lofMean + lofSD*3)))
+lofMean <- mean(outlier.scores.rsvl)
+lofSD <- sd(outlier.scores.rsvl)
+lofThresholdrsvl <- length(which(outlier.scores.rsvl > (lofMean + lofSD*3)))
+#pick top 5% of outliers
+outliersfarm <- order(outlier.scores.farm, decreasing=T)[1:lofThresholdfarm]
+outliersgrhm <- order(outlier.scores.grhm, decreasing=T)[1:lofThresholdgrhm]
+outliershtfd <- order(outlier.scores.htfd, decreasing=T)[1:lofThresholdhtfd]
+outliersmrry <- order(outlier.scores.mrry, decreasing=T)[1:lofThresholdmrry]
+outlierspghl <- order(outlier.scores.pghl, decreasing=T)[1:lofThresholdpghl]
+outliersrsvl <- order(outlier.scores.rsvl, decreasing=T)[1:lofThresholdrsvl]
+```
+
+Outliers for all of mesonet
+```{r}
+lofMean <- mean(outlier.scores.meso.clean)
+lofSD <- sd(outlier.scores.meso.clean)
+rmExtraneousValues <- which(outlier.scores.meso.clean > (lofMean + lofSD*3))
+
+#old calculations
+lofThresholdmeso <- length(which(outlier.scores.meso.clean > (lofMean + lofSD*3)))
+outliersmeso <- order(outlier.scores.meso.clean, decreasing=T)[1:lofThresholdmeso]
+```
+
+Plot Mesonet outliers
+```{r}
+n <- length(outlier.scores.meso.clean)
+pch <- rep(".", n)
+pch[rmExtraneousValues] <- "_"
+col <- rep("black", n)
+col[rmExtraneousValues] <- "red"
+pairs(normAllMeso.clean, pch=pch, col=col)
+```
+
+Plot outliers
+```{r}
+exclude <- which(is.nan(outliershtfd) == 1)
+exclude <- c(exclude, which(is.infinite(outliershtfd) == 1))
+
+n <- nrow(normRSVL)
+pch <- rep(".", n)
+pch[outliersrsvl] <- "+"
+col <- rep("black", n)
+col[outliersrsvl] <- "red"
+pairs(normRSVL, pch=pch, col=col)
+```
+
+Histogram code
+```{r}
+my.bin.width = 1
+tairhist <- hist(normAllMeso.clean[,1], main = "TAIR Histogram")
+summary(normAllMeso.clean[,1])
+relhhist <- hist(normAllMeso.clean[,2], main = "RELH Histogram")
+summary(normAllMeso.clean[,2])
+tdpthist <- hist(normAllMeso.clean[,3], main = "TDPT Histogram")
+summary(normAllMeso.clean[,3])
+wspdhist <- hist(normAllMeso.clean[,4], main = "WSPD Histogram")
+summary(normAllMeso.clean[,4])
+wdirhist <- hist(normAllMeso.clean[,5], main = "WDIR Histogram")
+summary(normAllMeso.clean[,5])
+wsmxhist <- hist(normAllMeso.clean[,6], main = "WSMX Histogram")
+summary(normAllMeso.clean[,6])
+wdmxhist <- hist(normAllMeso.clean[,7], main = "WDMX Histogram")
+summary(normAllMeso.clean[,7])
+sradhist <- hist(normAllMeso.clean[,8], main = "SRAD Histogram")
+summary(normAllMeso.clean[,8])
+prcphist <- hist(normAllMeso.clean[,9], main = "PRCP Histogram")
+summary(normAllMeso.clean[,9])
+```
+
+Thresholds
+```{r}
+length(which(normAllMeso.clean[,1] < -2.5))
+length(which(normAllMeso.clean[,1] > 2.5))
+
+length(which(normAllMeso.clean[,2] < -2.25))
+length(which(normAllMeso.clean[,2] > 1.459))
+
+length(which(normAllMeso.clean[,3] < -3))
+length(which(normAllMeso.clean[,3] > 2))
+
+length(which(normAllMeso.clean[,4] < -1))
+length(which(normAllMeso.clean[,4] > 3))
+
+length(which(normAllMeso.clean[,5] < -1.25))
+length(which(normAllMeso.clean[,5] > 1.25))
+
+length(which(normAllMeso.clean[,6] < -1))
+length(which(normAllMeso.clean[,6] > 3))
+
+length(which(normAllMeso.clean[,7] < -1.25))
+length(which(normAllMeso.clean[,7] > 1.25))
+
+length(which(normAllMeso.clean[,8] < -0.25))
+length(which(normAllMeso.clean[,8] > 3))
+
+length(which(normAllMeso.clean[,9] < -0.5))
+length(which(normAllMeso.clean[,9] > 3))
+```
+

@@ -1,0 +1,236 @@
+---
+title: "MGMT 635: Decision Tree Assignment"
+author: "Conrad Woidyla"
+date: "March 23, 2016"
+header-includes:
+  - \usepackage{multirow}
+output: pdf_document
+---
+
+# Introduction
+Classification is a common problem in data mining and analytics. Classification differs from clustering because it is supervised -- meaning that we have values (i.e., correct "answers") for the target variable from past data that we train our model on. In this assignment, we are focusing on decision trees, so the target variable is categorical, meaning it takes on only discrete (not continuous) values. In this class, we are only going to be dealing with data that has binary target variables (i.e., they only take on two values, like "yes or no", "fraud or valid", and "churn or no churn"). Keep in mind that classification can be used with data that has multi-valued target variables (like "A, B, C, D, or F" (grades) and "A, B, AB, or O" (blood type)). In addition, there are decision tree algorithms that can deal with continuous target variables. We won't spend time exploring those algorithms in this class.
+
+We will be leveraging Kabacoff Chapter 17 for this assignment. I highly recommend you read introduction to Chapter 17, 17.1, 17.3-17.3.1, and 17.6. You'll notice that Kabacoff talks about other classification algorithms in Chapter 17 (logistic regression - which we will cover next, random forests, and support vector machines). In short, there are many algorithms we can use to classify. They all have different strengths and weaknesses. In fact, as you read Provost and Fawcett Chapters 3,4, and 7, you'll notice that they refer to a variety of classification methods and focus on thinking analytically and critically about the performance of the different models. Kabacoff 17.6 addresses this as well.
+
+So, in this assignment, we will follow those authors' leads and focus on the critical and analytical thinking aspects as well. After all, with tools like R, the model creation is easy, right? ;-)
+
+**You will need to install the `rpart` and `rpart.plot` packages to complete this assignment.**
+
+
+# Submission Requirements
+You will complete all your work in the RMD file. Submit your completed and "knitted" PDF or Word DOCX file. Note that it may be easier to complete the code portions, knit your file to DOCX, and then answer the questions inside the DOCX file. Might I suggest bolding or italicizing your short answer responses (or otherwise highlighting them) so they are easy for me to find. Please only submit one file for this assignment.
+
+# Data set
+For this assignment, we will be using a German Credit data set that is widely available on the web. I specifically pull the data set from [here](http://ocw.mit.edu/courses/sloan-school-of-management/15-062-data-mining-spring-2003/assignments/GermanCredit.xls). You'll find the data on Blackboard Learn in a file named `german_credit.csv`.
+
+You will need to reference the description of the data in [this document](http://ocw.mit.edu/courses/sloan-school-of-management/15-062-data-mining-spring-2003/assignments/GermanCredit.pdf) to understand how to interpret the columns.
+
+
+# Assignment Requirements and Instructions 
+Before we begin, you will be taking random samples of the data and will otherwise be relying on `R`'s random number generator. To ensure that we all end up with the same results (and to make it easier for me to grade) (and to make it easier for me to grade), we will "seed" the random number generator with the same value, like this:
+
+```{r}
+set.seed(1234)
+```
+
+Now let's get going, shall we?
+
+## Step 1: Load and prepare the data 
+Load the data from the `german_credit.csv` file on Blackboard Learn. After you load the data, look over it an remove any columns you don't think you'll need.
+
+```{r}
+# load libraries and your data here
+#install.packages("rpart")
+#install.packages("rpart.plot")
+library(rpart)
+library(rpart.plot)
+#setwd("../../Unit8")
+gcredit <- read.csv("german_credit.csv",as.is=TRUE)
+gcredit$OBS. <- NULL
+```
+
+###_Question_: What is the target variable in this data? What do the possible target variable values mean?
+The target variable is RESPONSE. Response has two possible values: 0 for No, and 1 for yes. The responses indicate whether or not an individual has a good credit rating.
+
+
+###_Question_: What is the base rate of bad credit (i.e., how frequently does bad credit appear) in the data?
+```{r}
+# show your base rate calculation here
+badResponse <- subset(gcredit, RESPONSE == 0)
+baserate <- length(badResponse$RESPONSE)/length(gcredit$RESPONSE)
+baserate
+```
+The base rate is 30%.
+
+###_Question_: Knowing the bad credit base rate, describe how you could create a simple model that would achieve an accuracy rate of over 50% (i.e., better than chance -- the flipping of a coin)? How many terminal (or leaf) nodes would your simple decision tree model have?
+You could assume that 30% of the people will have bad credit. Your decision tree model would have two nodes.
+
+
+###_Question_: What would the entropy be in the root node of your simple decision tree?
+```{r}
+#show your entropy calculation here
+inv_baserate <- 1 - baserate
+entropy <- -1*( baserate * log(baserate, 2) + inv_baserate * log(inv_baserate, 2) )
+entropy
+```
+The entropy in the root node would be 0.8813.
+
+## Step 2: Separate the data into training and validation sets. 
+There are many ways to train and validate a model. All of them require that part of the data set is set aside to validate the model after it is created. This helps detect and eliminate over-fitting of the model to the training data. In this assignment, we'll use the simplest method of just dividing the data into two sets, but be aware there are [many other methods for cross-validating the model](https://en.wikipedia.org/wiki/Cross-validation_%28statistics%29).
+
+For this step, use the `sample()` function (as shown in Kabacoff Listing 17.1) to create a training data set that contains a random 80% of the original data and a validation set that contains the other 20% of the original data.
+
+```{r}
+# show your code here
+train <- sample(nrow(gcredit), 0.8*nrow(gcredit))
+gcredit.train <- gcredit[train,]
+gcredit.validate <- gcredit[-train,]
+```
+
+
+###_Question_: What is the base rate of bad credit in the training set? validation set? Is this what you expected? Explain why or why not.
+```{r}
+# calculate base rates here
+badResponse.train <- subset(gcredit.train, RESPONSE == 0)
+baserate.train <- length(badResponse.train$RESPONSE)/length(gcredit.train$RESPONSE)
+baserate.train
+badResponse.val <- subset(gcredit.validate, RESPONSE == 0)
+baserate.val <- length(badResponse.val$RESPONSE)/length(gcredit.validate$RESPONSE)
+baserate.val
+```
+The baserates for the training and validation set are close to what I expected. I expected the baserates to be approximately 0.3.
+
+
+###_Question_: Will you need the target variable in the validation set? Explain your answer.
+Yes, you need the target variable in the validation set so that you can test the accuracy of your model based on the training set.
+
+
+## Step 3: Train the model (i.e., grow the tree)
+For this step, you will use the `rpart()` and `prp()` functions to grow and "plot" the tree, respectively. Refer to Listing 17.3 for an example on how to do this. Use the `print()` and `summary()` function on the output of `rpart()` (i.e., your resulting decision tree object) and explore the variables inside the decision tree object to access the information you'll need to answer the questions in this step.
+
+```{r}
+# grow your tree here
+dtree <- rpart(RESPONSE ~ .,data=gcredit.train, method="class",
+               parms = list(split = "information"))
+prp(dtree, type = 2, extra = 104, fallen.leaves = TRUE, main = "Decision Tree")
+print(dtree)
+summary(dtree)
+```
+
+
+###_Question_: Calculate the information gain that results from the first branch of your decision tree. HINT: Look at the help for the `extra` parameter of the `prp()` function. You can also get the information you need by using the `print()` function on your decision tree object.
+
+```{r}
+# place calculations for information gain here
+entropy <- function (p1, p2){
+    return (-1*(p1*log2(p1) + p2*log2(p2)))
+  }
+parent_entr <- entropy(0.29, 0.71)
+c1_1 <- 0.42823529
+c1_2 <- 0.57176471
+c2_1 <- 0.13333333
+c2_2 <- 0.86666667
+info_gain <- parent_entr - ( (425)/800 * entropy(c1_1, c1_2) + 375/800 * entropy(c2_1, c2_2) )
+info_gain
+```
+The Information gain is 0.0798.
+
+###_Question_: Which predictor variable provided the most information gain?
+```{r}
+dtree$variable.importance
+```
+CHK_ACCT is the predictor variable that provides the most information gain.
+
+###_Question_: What is the accuracy of the decision tree on the training data? You'll need to use the `predict()` function as shown in Listing 17.3 and create a confusion matrix in order to calculate the accuracy.
+
+```{r}
+# show your accuracy calculations here
+dtree.pred <- predict(dtree, gcredit.train, type = "class")
+dtree.perf <- table(gcredit.train$RESPONSE,dtree.pred, dnn=c("Actual","Predicted") )
+dtree.perf
+accuracy <- (dtree.perf[1,1]+dtree.perf[2,2])/(sum(dtree.perf))
+accuracy
+```
+
+The accuracy of the decision tree on the training data set is 82.88 percent.
+
+## Step 4: Evaluate the performance of the decision tree on the validation data.
+Again, refer to Listing 17.3 in Kabacoff for an example of how to classify the data in the validation set using the model you created on the training set. Listing 17.3 also shows you how to create a confusion matrix so you can calculate the accuracy.
+
+```{r}
+# show your code here
+dtree.pred <- predict(dtree, gcredit.validate, type = "class")
+dtree.perf <- table(gcredit.validate$RESPONSE, dtree.pred, dnn=c("Actual","Predicted") )
+dtree.perf
+accuracy <- (dtree.perf[1,1]+dtree.perf[2,2])/(sum(dtree.perf))
+accuracy
+```
+
+The accuracy of the decision tree on the validation data set is 72.5 percent.
+
+###_Question_: Why is the accuracy lower on the validation data than on the training data? You should be able to think of two different possibilities.
+The accuracy is lower on the validation data set than on the training data set because of two possibilities: first, the decision tree could be overfitted to the training data set; second, the training data set may not be a perfect representation of the entire data set causing the decision tree to have a bias towards the set of training data.
+
+## Step 5: Prune the decision tree to avoid over-fitting.
+Listing 17.3 shows how to prune the decision tree. You'll need to understand the cptable (which you'll find inside your decision tree object) and how to interpret the output of the `plotcp()` function to understand how much to prune your tree. Follow the example in Kabacoff 17.3.1. **Read carefully!** Be sure and display your pruned decision tree plot.
+
+```{r}
+# place your pruning code here
+dtree$cptable
+plotcp(dtree)
+xerrormin <- 0.9267241 - 0.05404608
+xerrormax <- 0.9267241 + 0.05404608
+xerrormin
+xerrormax
+dtree.pruned <- prune(dtree, cp=0.01580460)
+prp(dtree.pruned, type = 2, extra = 104, fallen.leaves = TRUE, main = "Decision Tree")
+```
+
+###_Question_: Explain what you just did and why you needed to do it.
+The decision tree was overfitted to the training data. the prune() function removes excessive nodes to generalize the decision tree. This is done by specifying a complexity parameter that is within one standard error from the minimum cross validated error value. 
+
+## Step 6: Evaluate the performance of the pruned decision tree on the validation data.
+Repeat Step 4 using the pruned decision tree model.
+
+```{r}
+# show your code here
+dtree.pred <- predict(dtree.pruned, gcredit.validate, type = "class")
+dtree.perf <- table(gcredit.validate$RESPONSE, dtree.pred, dnn=c("Actual","Predicted") )
+dtree.perf
+accuracy <- (dtree.perf[1,1]+dtree.perf[2,2])/(sum(dtree.perf))
+accuracy
+```
+
+###_Question_: Was the accuracy rate as high as you thought it should be? Explain why this is and why this might be acceptable.
+The accuracy rate for the pruned model is 72 percent while the accuracy rate for the unpruned model is 72.5 percent. The pruned model accuracy rate contradicts expectations since 12 of the splits were removed. The loss of 0.5 percent is an acceptable cost since the decision tree is now much simpler. A simpler decision tree could perform better on future data sets for which it will be used.
+
+###_Question_: "Accuracy" is only one way (and not always the best way) to assess the performance of a model. In the code chunk below evaluate the performance using at least TWO other metrics.  Assume you know the following costs of misclassifications:
+
+\begin{table}[]
+\centering
+\begin{tabular}{ll|c|c|}
+\cline{3-4}
+                                                       & \multicolumn{1}{c|}{} & \multicolumn{2}{c|}{\textbf{Predicted}}              \\ \cline{3-4} 
+                                                       &                       & \multicolumn{1}{l|}{Good} & \multicolumn{1}{l|}{Bad} \\ \hline
+\multicolumn{1}{|l|}{\multirow{2}{*}{\textbf{Actual}}} & Good                  & 0                         & 100                      \\ \cline{2-4} 
+\multicolumn{1}{|l|}{}                                 & Bad                   & 500                       & 0                        \\ \hline
+\end{tabular}
+\end{table}
+
+```{r}
+# show your code here
+sensitivity <- dtree.perf[1,1]/sum(dtree.perf[1,])
+sensitivity
+specificity <- dtree.perf[2,2]/sum(dtree.perf[2,])
+specificity
+
+dtree.prob <- dtree.perf/sum(dtree.perf)
+dtree.prob
+cost_matrix <- matrix(c(0,500,100,0), nrow=2, ncol=2)
+cost_matrix
+expected_val <- sum(dtree.prob * cost_matrix)
+expected_val
+```
+Although the model has a 72 percent accuracy rate, the model's sensitivity is 47 percent and the specificity is 85 percent. This indicates that the model predicts good credit rating events 47 percent of the time and bad cedit rating events 85 percent of the time. So, the model is better at prediciting bad credit rating events rather than good credit rating events.
+
+The expected value for the costs of misclassification is 68. 

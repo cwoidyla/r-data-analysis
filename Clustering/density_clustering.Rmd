@@ -1,0 +1,87 @@
+---
+title: "Density-Based Clustering"
+output: pdf_document
+---
+
+Create training data
+```{r}
+meso.training <- mesoSample[,-1]
+```
+
+
+OPTICS from DBSCAN library
+```{r}
+library(dbscan)
+#upper bound eps
+eps <- 10
+#minPts set to number of attributes
+minPts <- 14
+#lower bound eps
+eps_cl <- 2
+#Time optics algorithm
+ptm <- proc.time()
+oCalc <- optics(meso.training, eps, minPts, eps_cl)
+proc.time() - ptm
+predict(oCalc, )
+```
+
+Questions for the morning... How did the clustering algorithm do with distinguishing different locations?
+
+MClust
+```{r}
+library(mclust)
+ptm <- proc.time()
+mTest <- Mclust(meso.training)
+proc.time() - ptm
+plot(mTest)
+summary(fit)
+```
+
+Hierarchical clustering
+```{r}
+library(birch)
+hag <- agnes(meso.training)
+
+```
+
+
+Function for precision, recall, and fmeasure
+```{r}
+accuracy <- function(x) {
+  tp <- 0
+  for(i in 1:ncol(x)){
+    tp <- tp + x[i,i]
+  }
+  acc <- tp / sum(x)
+  return (acc)
+}
+precision <- function(x) {
+  tp <- 0
+  tpfp <- 0
+  for(i in 1:ncol(x)){
+    tp <- tp + x[i,i] #sum the true positives
+    for(j in 1:nrow(x)) {
+      tpfp <- tpfp + x[j,i] #sum the false positives
+    }
+    tpfp <- tpfp + tp #sum the true positives and false positives
+  }
+  prec <- tp / tpfp
+  return (prec)
+}
+recall <- function(x) {
+  tp <- 0
+  p <- 0
+  for(i in 1:ncol(x)){
+    tp <- tp + x[i,i] #sum the true positives
+    for(j in 1:nrow(x)) {
+      p <- p + x[i,j] #sum the positives
+    }
+  }
+  rec <- tp / p
+  return (rec)
+}
+fmeasure <- function(prec, rec) {
+  fmea <- (2*prec*rec)/(prec+rec)
+  return(fmea)
+}
+```
